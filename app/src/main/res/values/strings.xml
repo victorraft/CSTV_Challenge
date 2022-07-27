@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CSTV</string>
+    <string name="match_list_screen_title">Partidas</string>
+    <string name="match_item_vs">vs</string>
 </resources>
