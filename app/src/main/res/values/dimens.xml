@@ -2,4 +2,7 @@
 <resources>
     <dimen name="match_logo_size">60dp</dimen>
     <dimen name="league_logo_size">16dp</dimen>
+    <dimen name="match_item_corner_radius">16dp</dimen>
+    <dimen name="match_item_list_spacing">24dp</dimen>
+    <dimen name="match_time_padding">8dp</dimen>
 </resources>

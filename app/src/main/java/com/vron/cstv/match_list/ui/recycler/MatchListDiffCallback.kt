@@ -1,4 +1,4 @@
-package com.vron.cstv.match_list.ui
+package com.vron.cstv.match_list.ui.recycler
 
 import androidx.recyclerview.widget.DiffUtil
 import com.vron.cstv.match_list.domain.model.Match

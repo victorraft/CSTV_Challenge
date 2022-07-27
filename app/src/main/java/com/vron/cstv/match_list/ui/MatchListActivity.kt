@@ -5,10 +5,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vron.cstv.R
 import com.vron.cstv.databinding.ActivityMatchListBinding
 import com.vron.cstv.match_list.domain.model.Match
 import com.vron.cstv.match_list.presentation.MatchListViewModel
 import com.vron.cstv.match_list.presentation.ViewState
+import com.vron.cstv.match_list.ui.recycler.MatchListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MatchListActivity : AppCompatActivity() {
@@ -31,6 +33,7 @@ class MatchListActivity : AppCompatActivity() {
     private fun configureRecycler() {
         binding.matchesRecycler.apply {
             layoutManager = LinearLayoutManager(this@MatchListActivity)
+            addItemDecoration(MarginItemDecoration(spaceSize = resources.getDimensionPixelSize(R.dimen.match_item_list_spacing)))
             adapter = matchListAdapter
         }
     }

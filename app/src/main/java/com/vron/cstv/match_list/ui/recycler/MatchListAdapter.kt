@@ -1,4 +1,4 @@
-package com.vron.cstv.match_list.ui
+package com.vron.cstv.match_list.ui.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

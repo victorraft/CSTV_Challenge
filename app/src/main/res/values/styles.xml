@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MatchListTitle">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:lineSpacingMultiplier">1.25</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="MatchListItemTeamName">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:lineSpacingMultiplier">1.172</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="MatchListItemTime">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:lineSpacingMultiplier">1.172</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="MatchListItemVs">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#80FFFFFF</item>
+        <item name="android:lineSpacingMultiplier">1.172</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="MatchListItemLeagueSeriesName">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:lineSpacingMultiplier">1.172</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+</resources>

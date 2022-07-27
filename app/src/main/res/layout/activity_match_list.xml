@@ -8,10 +8,11 @@
 
     <TextView
         android:id="@+id/screen_title"
+        style="@style/MatchListTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:text="@string/match_list_screen_title"
-        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +23,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/screen_title" />
+        app:layout_constraintTop_toBottomOf="@id/screen_title"
+        tools:listitem="@layout/match_list_item" />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/loading_indicator"
