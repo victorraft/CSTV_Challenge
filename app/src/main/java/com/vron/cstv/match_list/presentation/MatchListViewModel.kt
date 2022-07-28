@@ -23,7 +23,7 @@ class MatchListViewModel(
         viewModelScope.launch {
             _viewState.value = ViewState(matchList = emptyList(), isLoading = true)
 
-            getMatchList.execute(page = 0, pageSize = API_PAGE_SIZE)
+            getMatchList.execute(page = 1, pageSize = API_PAGE_SIZE)
                 .onSuccess { matches ->
                     _viewState.value = ViewState(matchList = matches, isLoading = false)
                 }.onFailure { error ->

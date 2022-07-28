@@ -1,6 +1,8 @@
 package com.vron.cstv.match_list.di
 
+import com.vron.cstv.BuildConfig
 import com.vron.cstv.common.PANDASCORE_BASE_URL
+import com.vron.cstv.match_list.data.remote.AuthInterceptor
 import com.vron.cstv.match_list.data.remote.CsApi
 import com.vron.cstv.match_list.data.remote.MatchMapper
 import com.vron.cstv.match_list.data.remote.RemoteMatchDataSource
@@ -9,6 +11,7 @@ import com.vron.cstv.match_list.data.repository.MatchRepositoryImpl
 import com.vron.cstv.match_list.domain.repository.MatchRepository
 import com.vron.cstv.match_list.domain.usecase.GetMatchList
 import com.vron.cstv.match_list.presentation.MatchListViewModel
+import okhttp3.OkHttpClient
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -28,10 +31,19 @@ val matchListModule = module {
 
     factory { GetMatchList(matchRepository = get()) }
 
+    factory { AuthInterceptor(apiKey = BuildConfig.API_KEY) }
+
+    single<OkHttpClient> {
+        OkHttpClient.Builder()
+            .addInterceptor(get<AuthInterceptor>())
+            .build()
+    }
+
     single<CsApi> {
         Retrofit.Builder()
             .baseUrl(PANDASCORE_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(get())
             .build()
             .create()
     }

@@ -7,4 +7,10 @@ data class MatchDto(
     val id: Int,
     @SerializedName("name")
     val name: String,
+    @SerializedName("opponents")
+    val opponents: List<OpponentDto>,
+    @SerializedName("league")
+    val league: LeagueDto,
+    @SerializedName("serie")
+    val serie: SerieDto
 )
