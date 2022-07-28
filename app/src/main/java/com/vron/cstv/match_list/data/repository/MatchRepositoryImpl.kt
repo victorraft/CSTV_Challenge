@@ -8,6 +8,6 @@ class MatchRepositoryImpl(
     private val matchDataSource: MatchDataSource
 ) : MatchRepository {
 
-    override suspend fun getMatches(page: Int, pageSize: Int): Result<List<Match>> =
-        matchDataSource.getMatches(page = page, pageSize = pageSize)
+    override suspend fun getMatches(page: Int, pageSize: Int, dateRange: Pair<String, String>): Result<List<Match>> =
+        matchDataSource.getMatches(page = page, pageSize = pageSize, dateRange = dateRange)
 }

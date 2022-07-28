@@ -5,9 +5,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CsApi {
-    @GET("matches/upcoming")
+    @GET("matches")
     suspend fun getMatches(
         @Query("page") page: Int,
         @Query("per_page") pageSize: Int,
+        @Query("sort") sort: String,
+        @Query("range[begin_at]") beginAt: String
     ): List<MatchDto>
 }

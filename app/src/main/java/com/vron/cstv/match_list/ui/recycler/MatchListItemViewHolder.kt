@@ -8,6 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.vron.cstv.R
 import com.vron.cstv.databinding.MatchListItemBinding
 import com.vron.cstv.match_list.domain.model.Match
+import com.vron.cstv.match_list.domain.model.MatchStatus
 import com.vron.cstv.match_list.domain.model.Team
 
 class MatchListItemViewHolder(
@@ -45,13 +46,14 @@ class MatchListItemViewHolder(
     }
 
     private fun setupTimeLabel() {
-        val isHappeningNow = currentItem.id == 0
-        val matchTimeBackgroundResource = when {
-            isHappeningNow -> R.drawable.match_item_time_now_background
-            else -> R.drawable.match_item_time_background
+        val isRunning = currentItem.status == MatchStatus.RUNNING
+        if (isRunning) {
+            binding.matchTime.setBackgroundResource(R.drawable.match_item_time_now_background)
+            binding.matchTime.text = "AGORA"
+        } else {
+            binding.matchTime.setBackgroundResource(R.drawable.match_item_time_background)
+            binding.matchTime.text = currentItem.beginAt
         }
-        binding.matchTime.setBackgroundResource(matchTimeBackgroundResource)
-        binding.matchTime.text = "AGORA"
     }
 
     private fun setupLeagueAndSerie() {

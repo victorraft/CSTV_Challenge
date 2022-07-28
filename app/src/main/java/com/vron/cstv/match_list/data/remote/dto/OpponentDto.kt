@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class OpponentDto(
     @SerializedName("type")
-    val type: String,
+    val type: OpponentTypeDto,
     @SerializedName("opponent")
     val opponent: TeamDto?,
 )
