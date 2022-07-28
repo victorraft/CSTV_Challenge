@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CsApi {
-    @GET("matches")
+    @GET("matches/upcoming")
     suspend fun getMatches(
         @Query("page") page: Int,
         @Query("per_page") pageSize: Int,

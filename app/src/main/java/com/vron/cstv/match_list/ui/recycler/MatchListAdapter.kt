@@ -18,7 +18,7 @@ class MatchListAdapter(
     }
 
     override fun onBindViewHolder(holder: MatchListItemViewHolder, position: Int) {
-        holder.setup(list[position])
+        holder.bind(list[position])
     }
 
     override fun getItemCount(): Int = list.size

@@ -22,12 +22,12 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/match_logo_size"
         android:layout_marginTop="18.5dp"
+        android:background="@drawable/round_image_placeholder"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toStartOf="@id/vs"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/match_time"
-        tools:background="@color/gray" />
+        app:layout_constraintTop_toBottomOf="@id/match_time" />
 
     <TextView
         android:id="@+id/team_1_name"
@@ -56,11 +56,11 @@
         android:id="@+id/team_2_logo"
         android:layout_width="0dp"
         android:layout_height="@dimen/match_logo_size"
+        android:background="@drawable/round_image_placeholder"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/vs"
-        app:layout_constraintTop_toTopOf="@id/team_1_logo"
-        tools:background="@color/gray" />
+        app:layout_constraintTop_toTopOf="@id/team_1_logo" />
 
     <TextView
         android:id="@+id/team_2_name"
@@ -91,11 +91,11 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/round_image_placeholder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        tools:background="@color/gray" />
+        app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <TextView
         android:id="@+id/league_and_serie"
