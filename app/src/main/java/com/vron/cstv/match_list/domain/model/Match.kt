@@ -7,4 +7,3 @@ data class Match(
     val league: League,
     val series: Series
 )
-
