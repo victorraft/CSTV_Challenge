@@ -1,11 +1,11 @@
-package com.vron.cstv.common.data.remote
+package com.vron.cstv.common.data.remote.mapper
 
 import com.vron.cstv.common.data.remote.dto.*
 import com.vron.cstv.common.domain.model.*
 
 class MatchMapper {
-    fun toDomain(matchDto: MatchDto): Match {
-        return Match(
+    fun toDomain(matchDto: MatchDto): Match =
+        Match(
             id = matchDto.id,
             teams = matchDto.opponents.mapNotNull(::mapOpponent),
             league = matchDto.league.let(::mapLeague),
@@ -13,7 +13,6 @@ class MatchMapper {
             status = mapStatus(matchDto.status),
             beginAt = matchDto.beginAt.orEmpty()
         )
-    }
 
     private fun mapOpponent(opponentDto: OpponentDto): Team? =
         when {

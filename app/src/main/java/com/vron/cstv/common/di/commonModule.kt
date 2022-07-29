@@ -4,8 +4,9 @@ import com.vron.cstv.BuildConfig
 import com.vron.cstv.common.PANDASCORE_BASE_URL
 import com.vron.cstv.common.data.remote.AuthInterceptor
 import com.vron.cstv.common.data.remote.CsApi
-import com.vron.cstv.common.data.remote.MatchMapper
 import com.vron.cstv.common.data.remote.RemoteMatchDataSource
+import com.vron.cstv.common.data.remote.mapper.MatchMapper
+import com.vron.cstv.common.data.remote.mapper.TeamDetailsMapper
 import com.vron.cstv.common.data.repository.MatchDataSource
 import com.vron.cstv.common.data.repository.MatchRepositoryImpl
 import com.vron.cstv.common.domain.repository.MatchRepository
@@ -23,6 +24,7 @@ val commonModule = module {
     factory<MatchDataSource> { RemoteMatchDataSource(api = get(), matchMapper = get()) }
 
     factory { MatchMapper() }
+    factory { TeamDetailsMapper() }
 
     factory { AuthInterceptor(apiKey = BuildConfig.API_KEY) }
 
