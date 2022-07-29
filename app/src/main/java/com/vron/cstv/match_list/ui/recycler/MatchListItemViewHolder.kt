@@ -7,20 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.vron.cstv.R
-import com.vron.cstv.common.utils.getDifferenceInDays
+import com.vron.cstv.common.presentation.DateFormatter
 import com.vron.cstv.databinding.MatchListItemBinding
 import com.vron.cstv.match_list.domain.model.Match
 import com.vron.cstv.match_list.domain.model.MatchStatus
 import com.vron.cstv.match_list.domain.model.Team
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
-
-private const val INPUT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
-private const val INPUT_DATE_TIMEZONE = "UTC"
 
 class MatchListItemViewHolder(
     private val binding: MatchListItemBinding,
+    private val dateFormatter: DateFormatter,
     private val onItemClicked: (Match) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -28,18 +23,6 @@ class MatchListItemViewHolder(
 
     private val context: Context
         get() = binding.root.context
-
-    private val inputDateFormat: DateFormat =
-        SimpleDateFormat(INPUT_DATE_FORMAT).apply { timeZone = TimeZone.getTimeZone(INPUT_DATE_TIMEZONE) }
-
-    private val displayDateFormat: DateFormat =
-        SimpleDateFormat(context.getString(R.string.match_time_format)).apply { timeZone = TimeZone.getDefault() }
-
-    private val todayDisplayDateFormat: DateFormat =
-        SimpleDateFormat(context.getString(R.string.match_time_format_today)).apply { timeZone = TimeZone.getDefault() }
-
-    private val closeDisplayDateFormat: DateFormat =
-        SimpleDateFormat(context.getString(R.string.match_time_format_close)).apply { timeZone = TimeZone.getDefault() }
 
     init {
         binding.root.setOnClickListener {
@@ -74,24 +57,9 @@ class MatchListItemViewHolder(
             binding.matchTime.text = context.getText(R.string.time_label_now)
         } else {
             binding.matchTime.setBackgroundResource(R.drawable.match_item_time_background)
-            binding.matchTime.text = convertToLocalDateTime(currentItem.beginAt)
+            binding.matchTime.text = dateFormatter.formatToLocalDateTime(currentItem.beginAt)
         }
     }
-
-    private fun convertToLocalDateTime(utcDateString: String): String =
-        try {
-            val inputDate = inputDateFormat.parse(utcDateString)!!
-            val diffInDays = getDifferenceInDays(inputDate, Date())
-
-            when {
-                diffInDays == 0 -> todayDisplayDateFormat.format(inputDate)
-                diffInDays < 3 -> closeDisplayDateFormat.format(inputDate).capitalize().replace(".", "")
-                else -> displayDateFormat.format(inputDate)
-            }
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-            ""
-        }
 
     private fun setupLeagueAndSerie() {
         binding.leagueAndSerie.text = "${currentItem.league.name} - ${currentItem.serie.fullName}"
