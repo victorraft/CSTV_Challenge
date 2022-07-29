@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.vron.cstv.R
+import com.vron.cstv.common.utils.getDifferenceInDays
 import com.vron.cstv.databinding.MatchListItemBinding
 import com.vron.cstv.match_list.domain.model.Match
 import com.vron.cstv.match_list.domain.model.MatchStatus
@@ -33,6 +34,12 @@ class MatchListItemViewHolder(
 
     private val displayDateFormat: DateFormat =
         SimpleDateFormat(context.getString(R.string.match_time_format)).apply { timeZone = TimeZone.getDefault() }
+
+    private val todayDisplayDateFormat: DateFormat =
+        SimpleDateFormat(context.getString(R.string.match_time_format_today)).apply { timeZone = TimeZone.getDefault() }
+
+    private val closeDisplayDateFormat: DateFormat =
+        SimpleDateFormat(context.getString(R.string.match_time_format_close)).apply { timeZone = TimeZone.getDefault() }
 
     init {
         binding.root.setOnClickListener {
@@ -74,7 +81,13 @@ class MatchListItemViewHolder(
     private fun convertToLocalDateTime(utcDateString: String): String =
         try {
             val inputDate = inputDateFormat.parse(utcDateString)!!
-            displayDateFormat.format(inputDate)
+            val diffInDays = getDifferenceInDays(inputDate, Date())
+
+            when {
+                diffInDays == 0 -> todayDisplayDateFormat.format(inputDate)
+                diffInDays < 3 -> closeDisplayDateFormat.format(inputDate).capitalize().replace(".", "")
+                else -> displayDateFormat.format(inputDate)
+            }
         } catch (ex: Exception) {
             ex.printStackTrace()
             ""

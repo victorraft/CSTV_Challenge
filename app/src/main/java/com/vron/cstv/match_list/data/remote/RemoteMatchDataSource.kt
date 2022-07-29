@@ -1,6 +1,6 @@
 package com.vron.cstv.match_list.data.remote
 
-import com.vron.cstv.common.runSuspendCatching
+import com.vron.cstv.common.utils.runSuspendCatching
 import com.vron.cstv.match_list.data.remote.dto.MatchDto
 import com.vron.cstv.match_list.data.repository.MatchDataSource
 import com.vron.cstv.match_list.domain.model.Match

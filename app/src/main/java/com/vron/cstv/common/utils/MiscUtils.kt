@@ -1,4 +1,4 @@
-package com.vron.cstv.common
+package com.vron.cstv.common.utils
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.TimeoutCancellationException
@@ -14,3 +14,4 @@ public suspend inline fun <R> runSuspendCatching(block: () -> R): Result<R> {
         Result.failure(e)
     }
 }
+
