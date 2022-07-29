@@ -21,7 +21,7 @@ import retrofit2.create
 val commonModule = module {
     single<MatchRepository> { MatchRepositoryImpl(matchDataSource = get()) }
 
-    factory<MatchDataSource> { RemoteMatchDataSource(api = get(), matchMapper = get()) }
+    factory<MatchDataSource> { RemoteMatchDataSource(api = get(), matchMapper = get(), teamDetailsMapper = get()) }
 
     factory { MatchMapper() }
     factory { TeamDetailsMapper() }
