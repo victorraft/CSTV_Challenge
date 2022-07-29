@@ -1,4 +1,4 @@
-package com.vron.cstv.match_list.ui
+package com.vron.cstv.match_list.ui.recycler
 
 import android.graphics.Rect
 import android.view.View

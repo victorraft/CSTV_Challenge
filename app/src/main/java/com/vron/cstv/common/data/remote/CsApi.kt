@@ -1,6 +1,6 @@
-package com.vron.cstv.match_list.data.remote
+package com.vron.cstv.common.data.remote
 
-import com.vron.cstv.match_list.data.remote.dto.MatchDto
+import com.vron.cstv.common.data.remote.dto.MatchDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

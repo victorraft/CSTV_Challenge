@@ -1,4 +1,4 @@
-package com.vron.cstv.match_list.domain.model
+package com.vron.cstv.common.domain.model
 
 data class Match(
     val id: Int,
@@ -8,7 +8,3 @@ data class Match(
     val status: MatchStatus,
     val beginAt: String
 )
-
-enum class MatchStatus {
-    FINISHED, RUNNING, NOT_STARTED, CANCELLED
-}

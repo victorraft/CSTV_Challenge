@@ -1,9 +1,9 @@
-package com.vron.cstv.match_list.data.remote
+package com.vron.cstv.common.data.remote
 
 import com.vron.cstv.common.utils.runSuspendCatching
-import com.vron.cstv.match_list.data.remote.dto.MatchDto
-import com.vron.cstv.match_list.data.repository.MatchDataSource
-import com.vron.cstv.match_list.domain.model.Match
+import com.vron.cstv.common.data.remote.dto.MatchDto
+import com.vron.cstv.common.data.repository.MatchDataSource
+import com.vron.cstv.common.domain.model.Match
 
 private const val FIELD_BEGIN_AT = "begin_at"
 

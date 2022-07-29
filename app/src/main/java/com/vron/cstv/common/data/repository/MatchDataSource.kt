@@ -1,6 +1,6 @@
-package com.vron.cstv.match_list.data.repository
+package com.vron.cstv.common.data.repository
 
-import com.vron.cstv.match_list.domain.model.Match
+import com.vron.cstv.common.domain.model.Match
 
 interface MatchDataSource {
     suspend fun getMatches(

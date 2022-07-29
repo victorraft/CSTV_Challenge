@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vron.cstv.common.API_PAGE_SIZE
-import com.vron.cstv.match_list.domain.model.MatchStatus
+import com.vron.cstv.common.domain.model.MatchStatus
 import com.vron.cstv.match_list.domain.usecase.GetMatchList
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat

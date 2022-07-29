@@ -1,4 +1,4 @@
-package com.vron.cstv.match_list.data.remote
+package com.vron.cstv.common.data.remote
 
 import okhttp3.Interceptor
 import okhttp3.Response

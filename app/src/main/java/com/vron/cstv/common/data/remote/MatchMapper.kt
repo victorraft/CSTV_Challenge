@@ -1,7 +1,7 @@
-package com.vron.cstv.match_list.data.remote
+package com.vron.cstv.common.data.remote
 
-import com.vron.cstv.match_list.data.remote.dto.*
-import com.vron.cstv.match_list.domain.model.*
+import com.vron.cstv.common.data.remote.dto.*
+import com.vron.cstv.common.domain.model.*
 
 class MatchMapper {
     fun toDomain(matchDto: MatchDto): Match {
@@ -20,6 +20,7 @@ class MatchMapper {
             opponentDto.opponent == null -> null
             opponentDto.type != OpponentTypeDto.TEAM -> null
             else -> Team(
+                id = opponentDto.opponent.id,
                 name = opponentDto.opponent.name,
                 imageUrl = opponentDto.opponent.image_url.orEmpty()
             )

@@ -9,9 +9,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.vron.cstv.R
 import com.vron.cstv.common.presentation.DateFormatter
 import com.vron.cstv.databinding.MatchListItemBinding
-import com.vron.cstv.match_list.domain.model.Match
-import com.vron.cstv.match_list.domain.model.MatchStatus
-import com.vron.cstv.match_list.domain.model.Team
+import com.vron.cstv.common.domain.model.Match
+import com.vron.cstv.common.domain.model.MatchStatus
+import com.vron.cstv.common.domain.model.Team
 
 class MatchListItemViewHolder(
     private val binding: MatchListItemBinding,

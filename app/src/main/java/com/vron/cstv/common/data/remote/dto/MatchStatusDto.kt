@@ -1,4 +1,4 @@
-package com.vron.cstv.match_list.data.remote.dto
+package com.vron.cstv.common.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 

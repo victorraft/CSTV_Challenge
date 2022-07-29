@@ -1,7 +1,7 @@
 package com.vron.cstv.match_list.ui.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.vron.cstv.match_list.domain.model.Match
+import com.vron.cstv.common.domain.model.Match
 
 class MatchListDiffCallback(
     private val oldList: List<Match>,
