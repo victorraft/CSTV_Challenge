@@ -2,16 +2,14 @@ package com.vron.cstv.match_list.ui.recycler
 
 import android.content.Context
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.vron.cstv.R
-import com.vron.cstv.common.presentation.DateFormatter
-import com.vron.cstv.databinding.MatchListItemBinding
 import com.vron.cstv.common.domain.model.Match
 import com.vron.cstv.common.domain.model.MatchStatus
-import com.vron.cstv.common.domain.model.Team
+import com.vron.cstv.common.presentation.DateFormatter
+import com.vron.cstv.databinding.MatchListItemBinding
 
 class MatchListItemViewHolder(
     private val binding: MatchListItemBinding,
@@ -42,13 +40,7 @@ class MatchListItemViewHolder(
         val team1 = currentItem.teams.getOrNull(0)
         val team2 = currentItem.teams.getOrNull(1)
 
-        setupTeamInfo(team1, binding.team1Name, binding.team1Logo)
-        setupTeamInfo(team2, binding.team2Name, binding.team2Logo)
-    }
-
-    private fun setupTeamInfo(team: Team?, teamNameTextView: TextView, teamLogoImageView: ImageView) {
-        teamNameTextView.text = team?.name ?: context.getText(R.string.team_undefined)
-        loadImage(team?.imageUrl, teamLogoImageView)
+        binding.teamVsTeam.setTeams(team1, team2)
     }
 
     private fun setupTimeLabel() {

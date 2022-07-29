@@ -39,6 +39,10 @@ class MatchDetailsActivity : AppCompatActivity() {
     private fun onViewStateChanged(viewState: ViewState) {
         Log.d("MatchDetailsActivity", "$viewState")
         binding.loadingIndicator.isVisible = viewState.isLoading
+        binding.teamVsTeam.isVisible = !viewState.isLoading
+ 
+        val (team1, team2) = viewState.match.teams.getOrNull(0) to viewState.match.teams.getOrNull(1)
+        binding.teamVsTeam.setTeams(team1, team2)
     }
 
     companion object {
