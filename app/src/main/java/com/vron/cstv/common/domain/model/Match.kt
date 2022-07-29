@@ -1,5 +1,7 @@
 package com.vron.cstv.common.domain.model
 
+import java.io.Serializable
+
 data class Match(
     val id: Int,
     val teams: List<Team>,
@@ -7,4 +9,4 @@ data class Match(
     val serie: Serie,
     val status: MatchStatus,
     val beginAt: String
-)
+) : Serializable

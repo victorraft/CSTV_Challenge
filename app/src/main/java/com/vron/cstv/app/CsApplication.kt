@@ -1,6 +1,8 @@
-package com.vron.cstv
+package com.vron.cstv.app
 
 import android.app.Application
+import com.vron.cstv.BuildConfig
+import com.vron.cstv.app.di.appModule
 import com.vron.cstv.common.di.commonModule
 import com.vron.cstv.match_details.di.matchDetailsModule
 import com.vron.cstv.match_list.di.matchListModule
@@ -22,7 +24,7 @@ class CsApplication : Application() {
             val logLevel = if (BuildConfig.DEBUG) Level.ERROR else Level.NONE
             androidLogger(logLevel)
             androidContext(this@CsApplication)
-            modules(listOf(commonModule, matchListModule, matchDetailsModule))
+            modules(listOf(commonModule, appModule, matchListModule, matchDetailsModule))
         }
     }
 }
