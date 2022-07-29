@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">CSTV</string>
     <string name="match_list_screen_title">Partidas</string>
-    <string name="match_item_vs">vs</string>
+    <string name="match_vs">vs</string>
+    <string name="time_label_now">AGORA</string>
+    <string name="match_time_format">dd.MM hh:mm</string>
     <string name="team_undefined">Indefinido</string>
 </resources>

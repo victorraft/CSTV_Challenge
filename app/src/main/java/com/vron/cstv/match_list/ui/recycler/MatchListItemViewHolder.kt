@@ -1,5 +1,6 @@
 package com.vron.cstv.match_list.ui.recycler
 
+import android.content.Context
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,12 @@ import com.vron.cstv.databinding.MatchListItemBinding
 import com.vron.cstv.match_list.domain.model.Match
 import com.vron.cstv.match_list.domain.model.MatchStatus
 import com.vron.cstv.match_list.domain.model.Team
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+
+private const val INPUT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
+private const val INPUT_DATE_TIMEZONE = "UTC"
 
 class MatchListItemViewHolder(
     private val binding: MatchListItemBinding,
@@ -17,6 +24,15 @@ class MatchListItemViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private lateinit var currentItem: Match
+
+    private val context: Context
+        get() = binding.root.context
+
+    private val inputDateFormat: DateFormat =
+        SimpleDateFormat(INPUT_DATE_FORMAT).apply { timeZone = TimeZone.getTimeZone(INPUT_DATE_TIMEZONE) }
+
+    private val displayDateFormat: DateFormat =
+        SimpleDateFormat(context.getString(R.string.match_time_format)).apply { timeZone = TimeZone.getDefault() }
 
     init {
         binding.root.setOnClickListener {
@@ -41,20 +57,28 @@ class MatchListItemViewHolder(
     }
 
     private fun setupTeamInfo(team: Team?, teamNameTextView: TextView, teamLogoImageView: ImageView) {
-        teamNameTextView.text = team?.name ?: binding.root.resources.getText(R.string.team_undefined)
+        teamNameTextView.text = team?.name ?: context.getText(R.string.team_undefined)
         loadImage(team?.imageUrl, teamLogoImageView)
     }
 
     private fun setupTimeLabel() {
-        val isRunning = currentItem.status == MatchStatus.RUNNING
-        if (isRunning) {
+        if (currentItem.status == MatchStatus.RUNNING) {
             binding.matchTime.setBackgroundResource(R.drawable.match_item_time_now_background)
-            binding.matchTime.text = "AGORA"
+            binding.matchTime.text = context.getText(R.string.time_label_now)
         } else {
             binding.matchTime.setBackgroundResource(R.drawable.match_item_time_background)
-            binding.matchTime.text = currentItem.beginAt
+            binding.matchTime.text = convertToLocalDateTime(currentItem.beginAt)
         }
     }
+
+    private fun convertToLocalDateTime(utcDateString: String): String =
+        try {
+            val inputDate = inputDateFormat.parse(utcDateString)!!
+            displayDateFormat.format(inputDate)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            ""
+        }
 
     private fun setupLeagueAndSerie() {
         binding.leagueAndSerie.text = "${currentItem.league.name} - ${currentItem.serie.fullName}"
@@ -62,7 +86,7 @@ class MatchListItemViewHolder(
     }
 
     private fun loadImage(url: String?, imageView: ImageView) {
-        Glide.with(imageView)
+        Glide.with(context)
             .load(url)
             .apply(RequestOptions.circleCropTransform())
             .into(imageView)

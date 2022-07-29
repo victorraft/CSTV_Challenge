@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="@string/match_item_vs"
+        android:text="@string/match_vs"
         app:layout_constraintBottom_toBottomOf="@id/team_1_logo"
         app:layout_constraintEnd_toStartOf="@id/team_2_logo"
         app:layout_constraintStart_toEndOf="@id/team_1_logo"
