@@ -12,5 +12,9 @@ data class MatchDto(
     @SerializedName("league")
     val league: LeagueDto,
     @SerializedName("serie")
-    val serie: SerieDto
+    val serie: SerieDto,
+    @SerializedName("status")
+    val status: MatchStatusDto,
+    @SerializedName("begin_at")
+    val beginAt: String?
 )

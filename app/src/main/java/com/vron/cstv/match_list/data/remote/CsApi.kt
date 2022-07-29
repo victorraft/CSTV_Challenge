@@ -9,5 +9,7 @@ interface CsApi {
     suspend fun getMatches(
         @Query("page") page: Int,
         @Query("per_page") pageSize: Int,
+        @Query("sort") sort: String,
+        @Query("range[begin_at]") beginAt: String
     ): List<MatchDto>
 }

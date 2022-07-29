@@ -6,19 +6,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vron.cstv.R
+import com.vron.cstv.common.presentation.DateFormatter
 import com.vron.cstv.databinding.ActivityMatchListBinding
 import com.vron.cstv.match_list.domain.model.Match
 import com.vron.cstv.match_list.presentation.MatchListViewModel
 import com.vron.cstv.match_list.presentation.ViewState
 import com.vron.cstv.match_list.ui.recycler.MatchListAdapter
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MatchListActivity : AppCompatActivity() {
 
     private val viewModel: MatchListViewModel by viewModel()
+    private val dateFormatter: DateFormatter by inject()
 
     private lateinit var binding: ActivityMatchListBinding
-    private val matchListAdapter = MatchListAdapter(onItemClicked = ::onItemClicked)
+    private val matchListAdapter = MatchListAdapter(dateFormatter = dateFormatter, onItemClicked = ::onItemClicked)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
