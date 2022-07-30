@@ -40,6 +40,8 @@ class MatchDetailsActivity : AppCompatActivity() {
         binding.loadingIndicator.isVisible = viewState.isLoading
         binding.matchAndPlayersViews.isVisible = !viewState.isLoading
 
+        binding.matchTime.text = dateFormatter.formatToLocalDateTime(viewState.match.beginAt)
+
         val (team1, team2) = viewState.match.teams.getOrNull(0) to viewState.match.teams.getOrNull(1)
         binding.teamVsTeam.setTeams(team1, team2)
         setPlayers(viewState.team1Details, viewState.team2Details)
