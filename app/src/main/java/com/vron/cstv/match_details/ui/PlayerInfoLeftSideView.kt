@@ -18,7 +18,7 @@ class PlayerInfoLeftSideView : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, attributeSetId: Int) : super(context, attrs, attributeSetId)
 
     private val binding = PlayerInfoLeftSideBinding.inflate(LayoutInflater.from(context), this)
-    
+
     fun setPlayer(player: Player?) {
         setPlayerNameAndNickname(player)
         loadImage(player?.imageUrl)
