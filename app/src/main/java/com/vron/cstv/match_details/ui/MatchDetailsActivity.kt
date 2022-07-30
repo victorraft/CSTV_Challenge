@@ -3,11 +3,10 @@ package com.vron.cstv.match_details.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.vron.cstv.common.domain.model.Match
-import com.vron.cstv.common.domain.model.TeamDetails
+import com.vron.cstv.common.domain.model.Player
 import com.vron.cstv.common.presentation.DateFormatter
 import com.vron.cstv.databinding.ActivityMatchDetailsBinding
 import com.vron.cstv.match_details.presentation.MatchDetailsViewModel
@@ -46,36 +45,25 @@ class MatchDetailsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun onViewStateChanged(viewState: ViewState) {
         binding.loadingIndicator.isVisible = viewState.isLoading
         binding.matchAndPlayersViews.isVisible = !viewState.isLoading
 
-        binding.matchTime.text = dateFormatter.formatToLocalDateTime(viewState.match.beginAt)
-
-        val (team1, team2) = viewState.match.teams.getOrNull(0) to viewState.match.teams.getOrNull(1)
-        binding.teamVsTeam.setTeams(team1, team2)
-        setPlayers(viewState.team1Details, viewState.team2Details)
+        setMatchInfo(viewState.match)
+        setPlayers(viewState.team1Details?.players, viewState.team2Details?.players)
     }
 
-    private fun setPlayers(team1: TeamDetails?, team2: TeamDetails?) {
-        val team1Players = team1?.players
-        binding.team1Players.isVisible = team1Players != null
-        if (team1Players != null) {
-            binding.team1Players.setPlayers(team1Players)
-        }
+    private fun setMatchInfo(match: Match) {
+        binding.matchTime.text = dateFormatter.formatToLocalDateTime(match.beginAt)
 
-        val team2Players = team2?.players
-        binding.team2Players.isVisible = team2Players != null
-        if (team2Players != null) {
-            binding.team2Players.setPlayers(team2Players)
-        }
+        val team1 = match.teams.getOrNull(0)
+        val team2 = match.teams.getOrNull(1)
+        binding.teamVsTeam.setTeams(team1, team2)
+    }
+
+    private fun setPlayers(team1Players: List<Player>?, team2Players: List<Player>?) {
+        binding.team1Players.setPlayers(team1Players)
+        binding.team2Players.setPlayers(team2Players)
     }
 
     companion object {

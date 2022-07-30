@@ -19,11 +19,11 @@ class TeamPlayersRightSideView : LinearLayout {
         orientation = VERTICAL
     }
 
-    fun setPlayers(players: List<Player>) {
-        binding.player1.setPlayer(players.getOrNull(0))
-        binding.player2.setPlayer(players.getOrNull(1))
-        binding.player3.setPlayer(players.getOrNull(2))
-        binding.player4.setPlayer(players.getOrNull(3))
-        binding.player5.setPlayer(players.getOrNull(4))
+    fun setPlayers(players: List<Player>?) {
+        binding.player1.setPlayer(players?.getOrNull(0))
+        binding.player2.setPlayer(players?.getOrNull(1))
+        binding.player3.setPlayer(players?.getOrNull(2))
+        binding.player4.setPlayer(players?.getOrNull(3))
+        binding.player5.setPlayer(players?.getOrNull(4))
     }
 }
