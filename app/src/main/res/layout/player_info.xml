@@ -9,45 +9,51 @@
         android:id="@+id/background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="2.5dp"
+        android:layout_marginTop="@dimen/player_background_offset_top"
         android:background="@drawable/match_item_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/player_picture" />
 
     <ImageView
         android:id="@+id/player_picture"
         android:layout_width="0dp"
         android:layout_height="@dimen/player_picture_size"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="@dimen/player_picture_margin_side"
+        android:layout_marginTop="@dimen/space_between_players"
+        android:layout_marginBottom="@dimen/player_picture_margin_bottom"
         android:background="@drawable/player_picture_background"
         app:layout_constraintBottom_toBottomOf="@id/background"
         app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/background"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/player_nickname"
+        style="@style/PlayerNickname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/player_name_margin_side"
+        android:gravity="start"
+        app:layout_constraintBottom_toTopOf="@id/player_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/player_picture"
         app:layout_constraintTop_toTopOf="@id/background"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="Nickname" />
 
     <TextView
         android:id="@+id/player_name"
+        style="@style/PlayerName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/background"
+        android:layout_marginStart="@dimen/player_name_margin_side"
+        android:gravity="start"
+        app:layout_constraintBottom_toBottomOf="@id/player_picture"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_nickname"
-        tools:text="Name" />
+        app:layout_constraintStart_toEndOf="@id/player_picture"
+        tools:text="Nome Jogador" />
 </merge>
