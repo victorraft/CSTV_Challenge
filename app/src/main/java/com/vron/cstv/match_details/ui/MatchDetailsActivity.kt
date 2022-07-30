@@ -3,6 +3,7 @@ package com.vron.cstv.match_details.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.vron.cstv.common.domain.model.Match
@@ -32,8 +33,24 @@ class MatchDetailsActivity : AppCompatActivity() {
             return
         }
 
+        configureToolbar(match)
+
         viewModel.initialize(match)
         viewModel.viewState.observe(this, ::onViewStateChanged)
+    }
+
+    private fun configureToolbar(match: Match) {
+        binding.toolbarTitle.text = "${match.league.name} - ${match.serie.fullName}"
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun onViewStateChanged(viewState: ViewState) {

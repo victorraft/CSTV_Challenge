@@ -6,5 +6,5 @@ data class LeagueDto(
     @SerializedName("name")
     val name: String,
     @SerializedName("image_url")
-    val image_url: String
+    val image_url: String?
 )

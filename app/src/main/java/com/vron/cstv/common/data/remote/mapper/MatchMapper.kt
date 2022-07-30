@@ -26,7 +26,7 @@ class MatchMapper {
         }
 
     private fun mapLeague(leagueDto: LeagueDto): League =
-        League(name = leagueDto.name, imageUrl = leagueDto.image_url)
+        League(name = leagueDto.name, imageUrl = leagueDto.image_url.orEmpty())
 
     private fun mapSerie(serieDto: SerieDto): Serie =
         Serie(fullName = serieDto.fullName)
