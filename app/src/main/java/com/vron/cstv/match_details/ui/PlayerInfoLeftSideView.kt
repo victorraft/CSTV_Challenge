@@ -9,15 +9,15 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.vron.cstv.R
 import com.vron.cstv.common.domain.model.Player
-import com.vron.cstv.databinding.PlayerInfoBinding
+import com.vron.cstv.databinding.PlayerInfoLeftSideBinding
 
-class PlayerInfoView : ConstraintLayout {
+class PlayerInfoLeftSideView : ConstraintLayout {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, attributeSetId: Int) : super(context, attrs, attributeSetId)
 
-    private val binding = PlayerInfoBinding.inflate(LayoutInflater.from(context), this)
+    private val binding = PlayerInfoLeftSideBinding.inflate(LayoutInflater.from(context), this)
 
     fun setPlayer(player: Player?) {
         setPlayerNameAndNickname(player)

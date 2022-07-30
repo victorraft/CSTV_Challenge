@@ -5,15 +5,15 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.vron.cstv.common.domain.model.Player
-import com.vron.cstv.databinding.TeamPlayersBinding
+import com.vron.cstv.databinding.TeamPlayersLeftSideBinding
 
-class TeamPlayersView : LinearLayout {
+class TeamPlayersLeftSideView : LinearLayout {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    private val binding = TeamPlayersBinding.inflate(LayoutInflater.from(context), this)
+    private val binding = TeamPlayersLeftSideBinding.inflate(LayoutInflater.from(context), this)
 
     init {
         orientation = VERTICAL
