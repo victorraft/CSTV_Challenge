@@ -6,6 +6,6 @@ import com.vron.cstv.common.domain.model.TeamDetails
 data class ViewState(
     val isLoading: Boolean,
     val match: Match,
-    val team1: TeamDetails? = null,
-    val team2: TeamDetails? = null
+    val team1Details: TeamDetails? = null,
+    val team2Details: TeamDetails? = null
 )

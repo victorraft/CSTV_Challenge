@@ -3,10 +3,10 @@ package com.vron.cstv.match_details.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.vron.cstv.common.domain.model.Match
+import com.vron.cstv.common.domain.model.TeamDetails
 import com.vron.cstv.common.presentation.DateFormatter
 import com.vron.cstv.databinding.ActivityMatchDetailsBinding
 import com.vron.cstv.match_details.presentation.MatchDetailsViewModel
@@ -37,12 +37,26 @@ class MatchDetailsActivity : AppCompatActivity() {
     }
 
     private fun onViewStateChanged(viewState: ViewState) {
-        Log.d("MatchDetailsActivity", "$viewState")
         binding.loadingIndicator.isVisible = viewState.isLoading
         binding.teamVsTeam.isVisible = !viewState.isLoading
- 
+
         val (team1, team2) = viewState.match.teams.getOrNull(0) to viewState.match.teams.getOrNull(1)
         binding.teamVsTeam.setTeams(team1, team2)
+        setPlayers(viewState.team1Details, viewState.team2Details)
+    }
+
+    private fun setPlayers(team1: TeamDetails?, team2: TeamDetails?) {
+        val team1Players = team1?.players
+        binding.team1Players.isVisible = team1Players != null
+        if (team1Players != null) {
+            binding.team1Players.setPlayers(team1Players)
+        }
+
+        val team2Players = team2?.players
+        binding.team2Players.isVisible = team2Players != null
+        if (team2Players != null) {
+            binding.team2Players.setPlayers(team2Players)
+        }
     }
 
     companion object {

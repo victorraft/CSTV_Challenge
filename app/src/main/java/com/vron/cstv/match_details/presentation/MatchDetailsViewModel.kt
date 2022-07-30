@@ -32,8 +32,8 @@ class MatchDetailsViewModel(
                     _viewState.value = ViewState(
                         isLoading = false,
                         match = match,
-                        team1 = teams.getOrNull(0),
-                        team2 = teams.getOrNull(1)
+                        team1Details = teams.getOrNull(0),
+                        team2Details = teams.getOrNull(1)
                     )
                 }.onFailure { error ->
                     error.printStackTrace()

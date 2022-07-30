@@ -5,4 +5,6 @@
     <dimen name="match_item_corner_radius">16dp</dimen>
     <dimen name="match_item_list_spacing">24dp</dimen>
     <dimen name="match_time_padding">8dp</dimen>
+    <dimen name="player_picture_size">50dp</dimen>
+    <dimen name="player_picture_corner_radius">8dp</dimen>
 </resources>

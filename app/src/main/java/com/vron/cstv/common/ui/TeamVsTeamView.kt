@@ -26,7 +26,7 @@ class TeamVsTeamView : ConstraintLayout {
     }
 
     private fun setupTeamInfo(team: Team?, teamNameTextView: TextView, teamLogoImageView: ImageView) {
-        teamNameTextView.text = team?.name ?: context.getText(R.string.team_undefined)
+        teamNameTextView.text = team?.name ?: context.getText(R.string.undefined)
         loadImage(team?.imageUrl, teamLogoImageView)
     }
 
