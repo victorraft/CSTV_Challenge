@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.vron.cstv.R
 import com.vron.cstv.common.domain.model.Player
 import com.vron.cstv.databinding.PlayerInfoLeftSideBinding
@@ -18,7 +18,7 @@ class PlayerInfoLeftSideView : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, attributeSetId: Int) : super(context, attrs, attributeSetId)
 
     private val binding = PlayerInfoLeftSideBinding.inflate(LayoutInflater.from(context), this)
-
+    
     fun setPlayer(player: Player?) {
         setPlayerNameAndNickname(player)
         loadImage(player?.imageUrl)
@@ -34,8 +34,7 @@ class PlayerInfoLeftSideView : ConstraintLayout {
     private fun loadImage(url: String?) {
         Glide.with(this)
             .load(url)
-            .transform(RoundedCorners(resources.getDimensionPixelSize(R.dimen.player_picture_corner_radius)))
-            .apply(RequestOptions.circleCropTransform())
+            .transform(CenterCrop(), RoundedCorners(resources.getDimensionPixelSize(R.dimen.player_picture_corner_radius)))
             .into(binding.playerPicture)
     }
 }
