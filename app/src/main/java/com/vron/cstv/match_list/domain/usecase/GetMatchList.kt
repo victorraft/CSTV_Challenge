@@ -1,7 +1,7 @@
 package com.vron.cstv.match_list.domain.usecase
 
-import com.vron.cstv.match_list.domain.model.Match
-import com.vron.cstv.match_list.domain.repository.MatchRepository
+import com.vron.cstv.common.domain.model.Match
+import com.vron.cstv.common.domain.repository.MatchRepository
 
 class GetMatchList(
     private val matchRepository: MatchRepository

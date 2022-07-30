@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.vron.cstv.common.presentation.DateFormatter
 import com.vron.cstv.databinding.MatchListItemBinding
-import com.vron.cstv.match_list.domain.model.Match
+import com.vron.cstv.common.domain.model.Match
 
 class MatchListAdapter(
     private val dateFormatter: DateFormatter,
