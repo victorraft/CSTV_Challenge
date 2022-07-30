@@ -5,5 +5,5 @@ data class Player(
     val firstName: String,
     val lastName: String,
     val name: String,
-    val imageUrl: String
+    val imageUrl: String?
 )

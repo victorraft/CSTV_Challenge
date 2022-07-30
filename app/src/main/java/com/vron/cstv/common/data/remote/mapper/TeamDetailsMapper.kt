@@ -19,6 +19,6 @@ class TeamDetailsMapper {
             firstName = playerDto.firstName.orEmpty(),
             lastName = playerDto.lastName.orEmpty(),
             name = playerDto.name,
-            imageUrl = playerDto.imageUrl.orEmpty()
+            imageUrl = playerDto.imageUrl
         )
 }

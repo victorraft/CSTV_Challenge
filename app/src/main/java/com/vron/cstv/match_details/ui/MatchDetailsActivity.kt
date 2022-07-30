@@ -5,12 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.vron.cstv.R
 import com.vron.cstv.common.domain.model.Match
 import com.vron.cstv.common.domain.model.Player
 import com.vron.cstv.common.presentation.DateFormatter
 import com.vron.cstv.databinding.ActivityMatchDetailsBinding
 import com.vron.cstv.match_details.presentation.MatchDetailsViewModel
 import com.vron.cstv.match_details.presentation.ViewState
+import com.vron.cstv.match_details.ui.player.PlayerInfoView
+import com.vron.cstv.match_details.ui.team.TeamPlayersView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -62,8 +68,28 @@ class MatchDetailsActivity : AppCompatActivity() {
     }
 
     private fun setPlayers(team1Players: List<Player>?, team2Players: List<Player>?) {
-        binding.team1Players.setPlayers(team1Players)
-        binding.team2Players.setPlayers(team2Players)
+        setTeamPlayers(team1Players, binding.team1Players)
+        setTeamPlayers(team2Players, binding.team2Players)
+    }
+
+    private fun setTeamPlayers(players: List<Player>?, teamPlayersView: TeamPlayersView) {
+        setPlayer(players?.getOrNull(0), teamPlayersView.player1)
+        setPlayer(players?.getOrNull(1), teamPlayersView.player2)
+        setPlayer(players?.getOrNull(2), teamPlayersView.player3)
+        setPlayer(players?.getOrNull(3), teamPlayersView.player4)
+        setPlayer(players?.getOrNull(4), teamPlayersView.player5)
+    }
+
+    private fun setPlayer(player: Player?, playerInfoView: PlayerInfoView) {
+        playerInfoView.playerNickname.text = player?.name ?: getText(R.string.undefined)
+
+        val playerName = player?.let { "${it.firstName.trim()} ${it.lastName.trim()}" }
+        playerInfoView.playerName.text = playerName ?: getText(R.string.undefined)
+
+        Glide.with(this)
+            .load(player?.imageUrl)
+            .transform(CenterCrop(), RoundedCorners(resources.getDimensionPixelSize(R.dimen.player_picture_corner_radius)))
+            .into(playerInfoView.playerPicture)
     }
 
     companion object {
