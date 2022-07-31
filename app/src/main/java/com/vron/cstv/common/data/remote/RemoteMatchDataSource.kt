@@ -9,6 +9,7 @@ import com.vron.cstv.common.domain.model.Match
 import com.vron.cstv.common.domain.model.TeamDetails
 import com.vron.cstv.common.utils.runSuspendCatching
 
+private const val FIELD_STATUS = "status"
 private const val FIELD_BEGIN_AT = "begin_at"
 
 class RemoteMatchDataSource(
@@ -26,7 +27,7 @@ class RemoteMatchDataSource(
             api.getMatches(
                 page = page,
                 pageSize = pageSize,
-                sort = FIELD_BEGIN_AT,
+                sort = "-$FIELD_STATUS,$FIELD_BEGIN_AT",
                 beginAt = "${dateRange.first},${dateRange.second}"
             )
         }.map { matchDtoList -> mapAllMatchesToDomain(matchDtoList) }
