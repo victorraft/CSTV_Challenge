@@ -13,11 +13,18 @@ import com.vron.cstv.match_list.presentation.MatchListViewModel
 import com.vron.cstv.match_list.presentation.ViewState
 import com.vron.cstv.match_list.ui.recycler.MarginItemDecoration
 import com.vron.cstv.match_list.ui.recycler.MatchListAdapter
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import kotlin.coroutines.CoroutineContext
 
-class MatchListActivity : AppCompatActivity() {
+private const val SPLASHSCREEN_DURATION_MS = 1500L
+
+class MatchListActivity : AppCompatActivity(), CoroutineScope {
+
+    override val coroutineContext: CoroutineContext
+            by lazy { Dispatchers.Default + SupervisorJob() }
 
     private val viewModel: MatchListViewModel by viewModel()
     private val dateFormatter: DateFormatter by inject()
@@ -28,7 +35,7 @@ class MatchListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
+        configureSplashScreen()
 
         binding = ActivityMatchListBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -36,6 +43,18 @@ class MatchListActivity : AppCompatActivity() {
         configureRecycler()
 
         viewModel.viewState.observe(this, ::onViewStateChanged)
+    }
+
+    private fun configureSplashScreen() {
+        val splashScreen = installSplashScreen()
+        var shouldDisplaySplash = true
+
+        splashScreen.setKeepOnScreenCondition { shouldDisplaySplash }
+
+        launch {
+            delay(SPLASHSCREEN_DURATION_MS)
+            shouldDisplaySplash = false
+        }
     }
 
     private fun configureRecycler() {
