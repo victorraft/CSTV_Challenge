@@ -11,11 +11,18 @@ API_KEY = "{YOUR_PANDASCORE_TOKEN}"
 
 ## Screenshots
 ### Portuguese
-<img src="/screenshots/portuguese/match_list.png" width="400"/> <img src="/screenshots/portuguese/match_details.png" width="400"/>
+#### Splash
+<img src="/screenshots/portuguese/splash.png" width="330"/> 
 
-![List of matches](/screenshots/portuguese/match_list.png "List of matches")
-![Match details](/screenshots/portuguese/match_details.png "Match details")
+#### Matches screen
+<img src="/screenshots/portuguese/match_list_loading.png" width="330"/> <img src="/screenshots/portuguese/match_list.png" width="330"/> <img src="/screenshots/portuguese/match_list_error.png" width="330"/> 
+
+#### Match details screen
+<img src="/screenshots/portuguese/match_details_loading.png" width="330"/> <img src="/screenshots/portuguese/match_details.png" width="330"/> <img src="/screenshots/portuguese/match_details_error.png" width="330"/>
 
 ### English
-![List of matches](/screenshots/english/match_list.png "List of matches")
-![Match details](/screenshots/english/match_details.png "Match details")
+#### Matches screen
+<img src="/screenshots/english/match_list.png" width="330"/> <img src="/screenshots/english/match_list_error.png" width="330"/> 
+
+#### Match details screen
+<img src="/screenshots/english/match_details.png" width="330"/> <img src="/screenshots/english/match_details_error.png" width="330"/>
