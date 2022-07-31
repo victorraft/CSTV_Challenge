@@ -11,9 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSTV.NoActionBar">
+
         <activity
             android:name=".match_list.ui.MatchListActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.FuzeSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
