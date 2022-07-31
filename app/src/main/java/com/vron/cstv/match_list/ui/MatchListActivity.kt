@@ -20,6 +20,7 @@ import org.koin.core.parameter.parametersOf
 import kotlin.coroutines.CoroutineContext
 
 private const val SPLASHSCREEN_DURATION_MS = 1500L
+private const val END_OF_LIST_ITEM_COUNT = 5
 
 class MatchListActivity : AppCompatActivity(), CoroutineScope {
 
@@ -31,7 +32,12 @@ class MatchListActivity : AppCompatActivity(), CoroutineScope {
     private val navigator: MatchListNavigator by inject { parametersOf(this) }
 
     private lateinit var binding: ActivityMatchListBinding
-    private val matchListAdapter = MatchListAdapter(dateFormatter = dateFormatter, onItemClicked = ::onItemClicked)
+    private val matchListAdapter = MatchListAdapter(
+        dateFormatter = dateFormatter,
+        onItemClicked = ::onItemClicked,
+        endOfListItemCount = END_OF_LIST_ITEM_COUNT,
+        onEndOfListApproaching = ::onEndOfListApproaching
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,13 +72,20 @@ class MatchListActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun onViewStateChanged(viewState: ViewState) {
-        binding.loadingIndicator.isVisible = viewState.isLoading
-        binding.matchesRecycler.isVisible = !viewState.isLoading
+        binding.loadingIndicator.isVisible = viewState.showLoading
+        binding.matchesRecycler.isVisible = !viewState.showLoading
 
-        matchListAdapter.setItems(viewState.matchList)
+        // To avoid adding more items while the RecyclerView is busy drawing.
+        binding.matchesRecycler.post {
+            matchListAdapter.setItems(viewState.matchList)
+        }
     }
 
     private fun onItemClicked(match: Match) {
         navigator.openMatchDetails(match)
+    }
+
+    private fun onEndOfListApproaching() {
+        viewModel.onEndOfListApproaching()
     }
 }
