@@ -11,6 +11,8 @@ API_KEY = "{YOUR_PANDASCORE_TOKEN}"
 
 ## Screenshots
 ### Portuguese
+<img src="/screenshots/portuguese/match_list.png" width="540"/> <img src="/screenshots/portuguese/match_details.png" width="540"/>
+
 ![List of matches](/screenshots/portuguese/match_list.png "List of matches")
 ![Match details](/screenshots/portuguese/match_details.png "Match details")
 
