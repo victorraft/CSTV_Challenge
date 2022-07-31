@@ -43,7 +43,7 @@
         app:layout_constraintStart_toEndOf="@id/player_picture"
         app:layout_constraintTop_toTopOf="@id/background"
         app:layout_constraintVertical_bias="1.0"
-        tools:text="Nickname" />
+        tools:text="@tools:sample/first_names" />
 
     <TextView
         android:id="@+id/player_name"
@@ -55,5 +55,5 @@
         app:layout_constraintBottom_toBottomOf="@id/player_picture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/player_picture"
-        tools:text="Nome Jogador" />
+        tools:text="@tools:sample/full_names" />
 </merge>

@@ -39,9 +39,16 @@ class MatchDetailsActivity : AppCompatActivity() {
         }
 
         configureToolbar(match)
+        configureClickListeners(match)
 
         viewModel.initialize(match)
         viewModel.viewState.observe(this, ::onViewStateChanged)
+    }
+
+    private fun configureClickListeners(match: Match) {
+        binding.errorText.setOnClickListener {
+            viewModel.initialize(match)
+        }
     }
 
     private fun configureToolbar(match: Match) {
@@ -52,11 +59,13 @@ class MatchDetailsActivity : AppCompatActivity() {
     }
 
     private fun onViewStateChanged(viewState: ViewState) {
-        binding.loadingIndicator.isVisible = viewState.isLoading
-        binding.matchAndPlayersViews.isVisible = !viewState.isLoading
+        binding.loadingIndicator.isVisible = viewState.showLoading
+        binding.matchAndPlayersInfoViews.isVisible = !viewState.showLoading && !viewState.showError
+        binding.errorText.isVisible = viewState.showError
 
         setMatchInfo(viewState.match)
-        setPlayers(viewState.team1Details?.players, viewState.team2Details?.players)
+        setTeamPlayers(viewState.team1Details?.players, binding.team1Players)
+        setTeamPlayers(viewState.team2Details?.players, binding.team2Players)
     }
 
     private fun setMatchInfo(match: Match) {
@@ -65,11 +74,6 @@ class MatchDetailsActivity : AppCompatActivity() {
         val team1 = match.teams.getOrNull(0)
         val team2 = match.teams.getOrNull(1)
         binding.teamVsTeam.setTeams(team1, team2)
-    }
-
-    private fun setPlayers(team1Players: List<Player>?, team2Players: List<Player>?) {
-        setTeamPlayers(team1Players, binding.team1Players)
-        setTeamPlayers(team2Players, binding.team2Players)
     }
 
     private fun setTeamPlayers(players: List<Player>?, teamPlayersView: TeamPlayersView) {
@@ -84,7 +88,7 @@ class MatchDetailsActivity : AppCompatActivity() {
         playerInfoView.playerNickname.text = player?.name ?: getText(R.string.undefined)
 
         val playerName = player?.let { "${it.firstName.trim()} ${it.lastName.trim()}" }
-        playerInfoView.playerName.text = playerName ?: getText(R.string.undefined)
+        playerInfoView.playerName.text = playerName ?: ""
 
         Glide.with(this)
             .load(player?.imageUrl)

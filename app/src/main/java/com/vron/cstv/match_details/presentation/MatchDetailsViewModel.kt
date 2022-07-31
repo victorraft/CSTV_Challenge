@@ -12,32 +12,33 @@ class MatchDetailsViewModel(
     private val getTeamDetails: GetTeamsDetailsList
 ) : ViewModel() {
 
-    private lateinit var match: Match
-
     private val _viewState = MutableLiveData<ViewState>()
     val viewState: LiveData<ViewState> = _viewState
 
     fun initialize(match: Match) {
-        this.match = match
-        fetchTeamDetails()
+        fetchTeamDetails(match)
     }
 
-    fun fetchTeamDetails() {
+    private fun fetchTeamDetails(match: Match) {
         viewModelScope.launch {
-            _viewState.value = ViewState(isLoading = true, match = match)
-
             val teamIds = match.teams.map { it.id }
+            if (teamIds.isEmpty()) {
+                _viewState.value = ViewState(match = match)
+                return@launch
+            }
+
+            _viewState.value = ViewState(showLoading = true, match = match)
+
             getTeamDetails.execute(teamIds)
                 .onSuccess { teams ->
                     _viewState.value = ViewState(
-                        isLoading = false,
                         match = match,
                         team1Details = teams.getOrNull(0),
                         team2Details = teams.getOrNull(1)
                     )
                 }.onFailure { error ->
                     error.printStackTrace()
-                    _viewState.value = ViewState(isLoading = false, match = match)
+                    _viewState.value = ViewState(match = match, showError = true)
                 }
         }
     }

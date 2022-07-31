@@ -7,4 +7,5 @@
     <string name="match_time_format_close">EEE, HH:mm</string>
     <string name="match_time_format_today">\'Hoje\', HH:mm</string>
     <string name="undefined">Indefinido</string>
+    <string name="error_text">Um erro ocorreu. Toque aqui para tentar novamente.</string>
 </resources>

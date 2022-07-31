@@ -47,8 +47,15 @@ class MatchListActivity : AppCompatActivity(), CoroutineScope {
         setContentView(binding.root)
 
         configureRecycler()
+        configureClickListeners()
 
         viewModel.viewState.observe(this, ::onViewStateChanged)
+    }
+
+    private fun configureClickListeners() {
+        binding.errorText.setOnClickListener {
+            viewModel.refresh()
+        }
     }
 
     private fun configureSplashScreen() {
@@ -74,6 +81,7 @@ class MatchListActivity : AppCompatActivity(), CoroutineScope {
     private fun onViewStateChanged(viewState: ViewState) {
         binding.loadingIndicator.isVisible = viewState.showLoading
         binding.matchesRecycler.isVisible = !viewState.showLoading
+        binding.errorText.isVisible = viewState.showError
 
         // To avoid adding more items while the RecyclerView is busy drawing.
         binding.matchesRecycler.post {
