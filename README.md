@@ -26,3 +26,9 @@ API_KEY = "{YOUR_PANDASCORE_TOKEN}"
 
 #### Match details screen
 <img src="/screenshots/english/match_details.png" width="330"/> <img src="/screenshots/english/match_details_error.png" width="330"/>
+
+## Next steps
+Since this was done in the short span of a week, it's needless to say there is still much to be improved in the project. Some of the ideas for future improvement are:
+- Writing tests.
+- Break the `app`, `common`, `match_list` and `match_details` packages into their own separate modules.
+- Rewriting the UI layer with [Jetpack Compose](https://developer.android.com/jetpack/compose).
