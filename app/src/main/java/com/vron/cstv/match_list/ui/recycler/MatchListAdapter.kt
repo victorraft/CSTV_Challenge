@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.vron.cstv.common.domain.model.Match
 import com.vron.cstv.common.presentation.DateFormatter
 import com.vron.cstv.databinding.MatchListItemBinding
-import com.vron.cstv.common.domain.model.Match
 
 class MatchListAdapter(
     private val dateFormatter: DateFormatter,
-    private val onItemClicked: (Match) -> Unit
+    private val onItemClicked: (Match) -> Unit,
+    private val endOfListItemCount: Int,
+    private val onEndOfListApproaching: () -> Unit
 ) : RecyclerView.Adapter<MatchListItemViewHolder>() {
 
     private val list = mutableListOf<Match>()
@@ -22,6 +24,11 @@ class MatchListAdapter(
 
     override fun onBindViewHolder(holder: MatchListItemViewHolder, position: Int) {
         holder.bind(list[position])
+
+        val distanceFromEndOfList = list.size - position
+        if (distanceFromEndOfList <= endOfListItemCount) {
+            onEndOfListApproaching()
+        }
     }
 
     override fun getItemCount(): Int = list.size

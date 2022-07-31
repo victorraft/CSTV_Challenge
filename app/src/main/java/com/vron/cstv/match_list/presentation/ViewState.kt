@@ -4,5 +4,5 @@ import com.vron.cstv.common.domain.model.Match
 
 data class ViewState(
     val matchList: List<Match>,
-    val isLoading: Boolean
+    val showLoading: Boolean
 )
