@@ -8,3 +8,12 @@ Create a local.properties file in the project's root folder, and add this line a
 ```
 API_KEY = "{YOUR_PANDASCORE_TOKEN}"
 ```
+
+## Screenshots
+### Portuguese
+![List of matches](/screenshots/portuguese/match_list.png "List of matches")
+![Match details](/screenshots/portuguese/match_details.png "Match details")
+
+### English
+![List of matches](/screenshots/english/match_list.png "List of matches")
+![Match details](/screenshots/english/match_details.png "Match details")
