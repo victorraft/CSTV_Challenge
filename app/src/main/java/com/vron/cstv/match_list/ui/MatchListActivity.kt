@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vron.cstv.R
 import com.vron.cstv.common.domain.model.Match
@@ -43,6 +45,13 @@ class MatchListActivity : AppCompatActivity(), CoroutineScope {
         configureRecycler()
 
         viewModel.viewState.observe(this, ::onViewStateChanged)
+        viewModel.matchPagingData.observe(this, ::onMatchListUpdate)
+    }
+
+    private fun onMatchListUpdate(pagingData: PagingData<Match>) {
+        lifecycleScope.launch {
+            matchListAdapter.submitData(pagingData)
+        }
     }
 
     private fun configureSplashScreen() {
@@ -51,7 +60,7 @@ class MatchListActivity : AppCompatActivity(), CoroutineScope {
 
         splashScreen.setKeepOnScreenCondition { shouldDisplaySplash }
 
-        launch {
+        lifecycleScope.launch {
             delay(SPLASHSCREEN_DURATION_MS)
             shouldDisplaySplash = false
         }
@@ -68,8 +77,6 @@ class MatchListActivity : AppCompatActivity(), CoroutineScope {
     private fun onViewStateChanged(viewState: ViewState) {
         binding.loadingIndicator.isVisible = viewState.isLoading
         binding.matchesRecycler.isVisible = !viewState.isLoading
-
-        matchListAdapter.setItems(viewState.matchList)
     }
 
     private fun onItemClicked(match: Match) {

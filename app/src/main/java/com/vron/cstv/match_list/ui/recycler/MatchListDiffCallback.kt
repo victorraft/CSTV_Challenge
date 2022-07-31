@@ -18,3 +18,9 @@ class MatchListDiffCallback(
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition] == newList[newItemPosition]
 }
+
+object MatchComparator : DiffUtil.ItemCallback<Match>() {
+    override fun areItemsTheSame(oldItem: Match, newItem: Match): Boolean = oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: Match, newItem: Match): Boolean = oldItem == newItem
+}

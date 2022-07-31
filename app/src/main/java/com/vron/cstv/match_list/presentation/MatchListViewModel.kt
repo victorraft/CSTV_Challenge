@@ -3,14 +3,19 @@ package com.vron.cstv.match_list.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.vron.cstv.common.API_PAGE_SIZE
-import com.vron.cstv.common.domain.model.MatchStatus
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
+import com.vron.cstv.common.domain.model.Match
 import com.vron.cstv.match_list.domain.usecase.GetMatchList
-import kotlinx.coroutines.launch
+import com.vron.cstv.match_list.ui.recycler.paging.MatchPagingDataSource
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.YEAR
+
+private const val API_PAGE_SIZE = 20
+private const val PREFETCH_DISTANCE = 5
 
 class MatchListViewModel(
     private val getMatchList: GetMatchList
@@ -19,24 +24,16 @@ class MatchListViewModel(
     private val _viewState = MutableLiveData<ViewState>()
     val viewState: LiveData<ViewState> = _viewState
 
-    init {
-        refresh()
-    }
+    val matchPagingData = getPagingData()
 
-    fun refresh() {
-        viewModelScope.launch {
-            _viewState.value = ViewState(matchList = emptyList(), isLoading = true)
-            val params = GetMatchList.Params(page = 1, pageSize = API_PAGE_SIZE, dateRange = getDateRange())
-
-            getMatchList.execute(params)
-                .onSuccess { matches ->
-                    val processedResult = matches.filter { it.status != MatchStatus.CANCELLED }
-                    _viewState.value = ViewState(matchList = processedResult, isLoading = false)
-                }.onFailure { error ->
-                    error.printStackTrace()
-                    _viewState.value = ViewState(matchList = emptyList(), isLoading = false)
-                }
-        }
+    private fun getPagingData(): LiveData<PagingData<Match>> {
+        val apiDateRange = getDateRange()
+        val pagingConfig = PagingConfig(pageSize = API_PAGE_SIZE, prefetchDistance = PREFETCH_DISTANCE)
+        val pager = Pager(
+            config = pagingConfig,
+            pagingSourceFactory = { MatchPagingDataSource(apiDateRange, getMatchList) }
+        )
+        return pager.liveData
     }
 
     private fun getDateRange(): Pair<String, String> {
