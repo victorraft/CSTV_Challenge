@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CSTV</string>
+    <string name="match_list_screen_title">Matches</string>
+    <string name="time_label_now">NOW</string>
+    <string name="match_time_format">MM/dd HH:mm</string>
+    <string name="match_time_format_close">EEE, HH:mm</string>
+    <string name="match_time_format_today">\'Today\', HH:mm</string>
+    <string name="undefined">TBD</string>
+    <string name="error_text">An error has occurred. Tap here to try again.</string>
+</resources>
