@@ -39,9 +39,16 @@ class MatchDetailsActivity : AppCompatActivity() {
         }
 
         configureToolbar(match)
+        configureClickListeners(match)
 
         viewModel.initialize(match)
         viewModel.viewState.observe(this, ::onViewStateChanged)
+    }
+
+    private fun configureClickListeners(match: Match) {
+        binding.errorText.setOnClickListener {
+            viewModel.initialize(match)
+        }
     }
 
     private fun configureToolbar(match: Match) {
@@ -52,8 +59,9 @@ class MatchDetailsActivity : AppCompatActivity() {
     }
 
     private fun onViewStateChanged(viewState: ViewState) {
-        binding.loadingIndicator.isVisible = viewState.isLoading
-        binding.matchAndPlayersViews.isVisible = !viewState.isLoading
+        binding.loadingIndicator.isVisible = viewState.showLoading
+        binding.matchAndPlayersInfoViews.isVisible = !viewState.showLoading && !viewState.showError
+        binding.errorText.isVisible = viewState.showError
 
         setMatchInfo(viewState.match)
         setTeamPlayers(viewState.team1Details?.players, binding.team1Players)

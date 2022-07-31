@@ -23,23 +23,22 @@ class MatchDetailsViewModel(
         viewModelScope.launch {
             val teamIds = match.teams.map { it.id }
             if (teamIds.isEmpty()) {
-                _viewState.value = ViewState(isLoading = false, match = match)
+                _viewState.value = ViewState(match = match)
                 return@launch
             }
 
-            _viewState.value = ViewState(isLoading = true, match = match)
+            _viewState.value = ViewState(showLoading = true, match = match)
 
             getTeamDetails.execute(teamIds)
                 .onSuccess { teams ->
                     _viewState.value = ViewState(
-                        isLoading = false,
                         match = match,
                         team1Details = teams.getOrNull(0),
                         team2Details = teams.getOrNull(1)
                     )
                 }.onFailure { error ->
                     error.printStackTrace()
-                    _viewState.value = ViewState(isLoading = false, match = match)
+                    _viewState.value = ViewState(match = match, showError = true)
                 }
         }
     }
