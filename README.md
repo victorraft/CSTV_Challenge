@@ -35,7 +35,7 @@ After that you should be able to run the project in Android Studio.
 #### Match details screen
 <img src="/screenshots/english/match_details.png" width="260"/> <img src="/screenshots/english/match_details_error.png" width="260"/>
 
-## Knows issues
+## Known issues
 When running in Android 12 the Splash screen will not show the logo, if you launch the app from inside Android Studio. This is an issue with Android's [SplashScreen library](https://developer.android.com/guide/topics/ui/splash-screen) and the bug is tracked [here](https://issuetracker.google.com/issues/205021357?pli=1). This issue does not happen if you run the app from the device launcher.
 
 ## Next steps
