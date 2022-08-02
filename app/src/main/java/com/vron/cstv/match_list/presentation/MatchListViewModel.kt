@@ -17,7 +17,6 @@ private const val PAGE_SIZE = 20
 class MatchListViewModel(
     private val getMatchList: GetMatchList
 ) : ViewModel() {
-
     private val _viewState = MutableLiveData<ViewState>()
     val viewState: LiveData<ViewState> = _viewState
 
@@ -53,17 +52,16 @@ class MatchListViewModel(
         }
 
         isLoading = true
+        _viewState.value = ViewState(matchList = matchList, showLoading = matchList.isEmpty())
 
         viewModelScope.launch {
-            _viewState.value = ViewState(matchList = matchList, showLoading = matchList.isEmpty())
             val params = GetMatchList.Params(page = currentPage, pageSize = PAGE_SIZE, dateRange = getDateRange())
 
             getMatchList.execute(params)
                 .onSuccess { matches ->
                     onLoadedNewMatches(matches)
                     isLoading = false
-                }
-                .onFailure { error ->
+                }.onFailure { error ->
                     onLoadingFailed(error)
                     isLoading = false
                 }
