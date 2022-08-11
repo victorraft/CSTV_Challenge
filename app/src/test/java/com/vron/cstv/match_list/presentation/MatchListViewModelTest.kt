@@ -59,6 +59,22 @@ internal class MatchListViewModelTest {
     }
 
     @Test
+    fun `When end of the match list is approaching the ViewModel makes only one request`() = runTest {
+        val getMatches = GetMatchListFakeImpl()
+        val matchListViewModel = MatchListViewModel(getMatches)
+
+        advanceUntilIdle()
+        matchListViewModel.onEndOfListApproaching()
+        matchListViewModel.onEndOfListApproaching()
+        matchListViewModel.onEndOfListApproaching()
+        matchListViewModel.onEndOfListApproaching()
+        advanceUntilIdle()
+
+        // getMatches should only be called twice: one in the initialization, other in the first time the list approaches the end.
+        assertEquals(2, getMatches.timesCalled)
+    }
+
+    @Test
     fun `After initial error, calling refresh() loads successfully`() = runTest {
         val getMatches = GetMatchListFakeImpl(returnFailure = true)
         val matchListViewModel = MatchListViewModel(getMatches)

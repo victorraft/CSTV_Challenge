@@ -16,7 +16,12 @@ class GetMatchListFakeImpl(
     var returnFailure: Boolean = false
 ) : GetMatchList {
 
+    var timesCalled = 0
+        private set
+
     override suspend fun execute(params: GetMatchList.Params): Result<List<Match>> {
+        timesCalled++
+
         return when {
             returnFailure -> Result.failure(IOException())
             params.page == 1 -> Result.success(fakeMatchesPage1)
