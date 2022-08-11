@@ -86,7 +86,7 @@ class MatchListViewModel(
 
     private fun onLoadingFailed(error: Throwable) {
         error.printStackTrace()
-        _viewState.value = ViewState(matchList = emptyList(), showLoading = false, showError = matchList.isEmpty())
+        _viewState.value = ViewState(matchList = matchList, showLoading = false, showError = matchList.isEmpty())
     }
 
     private fun getDateRange(): Pair<String, String> {
