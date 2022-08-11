@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.YEAR
 
-private const val PAGE_SIZE = 20
+private const val PAGE_SIZE = 25
 
 class MatchListViewModel(
     private val getMatchList: GetMatchList
@@ -21,7 +21,7 @@ class MatchListViewModel(
     val viewState: LiveData<ViewState> = _viewState
 
     private var currentPage = 1
-    private var isLoading = false
+    private var isLoadingNextPage = false
     private var didReachEndOfResults = false
     private val matchList = mutableListOf<Match>()
 
@@ -34,38 +34,39 @@ class MatchListViewModel(
         didReachEndOfResults = false
         matchList.clear()
 
-        loadPage()
+        viewModelScope.launch {
+            loadPage()
+        }
     }
 
     fun onEndOfListApproaching() {
-        if (isLoading) {
+        if (isLoadingNextPage) {
             return
         }
 
+        isLoadingNextPage = true
         currentPage++
-        loadPage()
+
+        viewModelScope.launch {
+            try {
+                loadPage()
+            } finally {
+                isLoadingNextPage = false
+            }
+        }
     }
 
-    private fun loadPage() {
+    private suspend fun loadPage() {
         if (didReachEndOfResults) {
             return
         }
 
-        isLoading = true
         _viewState.value = ViewState(matchList = matchList, showLoading = matchList.isEmpty())
 
-        viewModelScope.launch {
-            val params = GetMatchList.Params(page = currentPage, pageSize = PAGE_SIZE, dateRange = getDateRange())
-
-            getMatchList.execute(params)
-                .onSuccess { matches ->
-                    onLoadedNewMatches(matches)
-                    isLoading = false
-                }.onFailure { error ->
-                    onLoadingFailed(error)
-                    isLoading = false
-                }
-        }
+        val params = GetMatchList.Params(page = currentPage, pageSize = PAGE_SIZE, dateRange = getDateRange())
+        getMatchList.execute(params)
+            .onSuccess { matches -> onLoadedNewMatches(matches) }
+            .onFailure { error -> onLoadingFailed(error) }
     }
 
     private fun onLoadedNewMatches(newMatches: List<Match>) {

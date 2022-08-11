@@ -33,7 +33,6 @@ internal class MatchListViewModelTest {
         val getMatches = GetMatchListFakeImpl()
         val matchListViewModel = MatchListViewModel(getMatches)
 
-        verifyIfIsLoading(matchListViewModel)
         advanceUntilIdle()
         verifyIfMatchesWereReturned(matchListViewModel, fakeMatchesPage1)
     }
@@ -90,11 +89,6 @@ internal class MatchListViewModelTest {
         matchListViewModel.refresh()
         advanceUntilIdle()
         verifyIfMatchesWereReturned(matchListViewModel, fakeMatchesPage1)
-    }
-
-    private fun verifyIfIsLoading(matchListViewModel: MatchListViewModel) {
-        val state = matchListViewModel.viewState.getOrAwaitValue()
-        assertEquals(ViewState(showLoading = true), state)
     }
 
     private fun verifyIfMatchesWereReturned(matchListViewModel: MatchListViewModel, expectedMatches: List<Match>) {
