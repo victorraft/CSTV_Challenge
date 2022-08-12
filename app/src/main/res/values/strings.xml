@@ -7,5 +7,6 @@
     <string name="match_time_format_close">EEE, HH:mm</string>
     <string name="match_time_format_today">\'Hoje\', HH:mm</string>
     <string name="undefined">Indefinido</string>
-    <string name="error_text">Um erro ocorreu. Toque aqui para tentar novamente.</string>
+    <string name="error_text">Um erro ocorreu.\nToque aqui para tentar novamente.</string>
+    <string name="error_loading_more_text">Erro ao carregar mais partidas.\nToque aqui para tentar novamente.</string>
 </resources>

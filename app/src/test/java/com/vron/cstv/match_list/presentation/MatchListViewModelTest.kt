@@ -38,7 +38,7 @@ internal class MatchListViewModelTest {
     }
 
     @Test
-    fun `When ViewModel is created it displays an error state if the matches cannot be fetched`() = runTest {
+    fun `When matches cannot be loaded an error state happens`() = runTest {
         val getMatches = GetMatchListFakeImpl(returnFailure = true)
         val matchListViewModel = MatchListViewModel(getMatches)
 
@@ -47,26 +47,26 @@ internal class MatchListViewModelTest {
     }
 
     @Test
-    fun `When end of the match list is approaching the ViewModel loads more matches`() = runTest {
+    fun `When ViewModel is asked to load more matches the new matches are added to the list`() = runTest {
         val getMatches = GetMatchListFakeImpl()
         val matchListViewModel = MatchListViewModel(getMatches)
 
         advanceUntilIdle()
-        matchListViewModel.onEndOfListApproaching()
+        matchListViewModel.loadMoreItems()
         advanceUntilIdle()
         verifyIfMatchesWereReturned(matchListViewModel, fakeMatchesPage1 + fakeMatchesPage2)
     }
 
     @Test
-    fun `When end of the match list is approaching the ViewModel makes only one request`() = runTest {
+    fun `When ViewModel is asked to load more matches it makes only one request`() = runTest {
         val getMatches = GetMatchListFakeImpl()
         val matchListViewModel = MatchListViewModel(getMatches)
 
         advanceUntilIdle()
-        matchListViewModel.onEndOfListApproaching()
-        matchListViewModel.onEndOfListApproaching()
-        matchListViewModel.onEndOfListApproaching()
-        matchListViewModel.onEndOfListApproaching()
+        matchListViewModel.loadMoreItems()
+        matchListViewModel.loadMoreItems()
+        matchListViewModel.loadMoreItems()
+        matchListViewModel.loadMoreItems()
         advanceUntilIdle()
 
         // getMatches should only be called twice: one in the initialization, other in the first time the list approaches the end.

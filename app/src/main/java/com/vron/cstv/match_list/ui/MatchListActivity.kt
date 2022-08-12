@@ -6,9 +6,10 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vron.cstv.R
-import com.vron.cstv.common.domain.model.Match
 import com.vron.cstv.common.presentation.DateFormatter
 import com.vron.cstv.databinding.ActivityMatchListBinding
+import com.vron.cstv.match_list.presentation.MatchListItem
+import com.vron.cstv.match_list.presentation.MatchListItem.MatchItem
 import com.vron.cstv.match_list.presentation.MatchListViewModel
 import com.vron.cstv.match_list.presentation.ViewState
 import com.vron.cstv.match_list.ui.recycler.MarginItemDecoration
@@ -79,21 +80,38 @@ class MatchListActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun onViewStateChanged(viewState: ViewState) {
-        binding.loadingIndicator.isVisible = viewState.showLoading
-        binding.matchesRecycler.isVisible = !viewState.showLoading
-        binding.errorText.isVisible = viewState.showError
+        val matches = viewState.matchList
+        val isEmpty = matches.isEmpty()
+
+        binding.loadingIndicator.isVisible = isEmpty && viewState.showLoading
+        binding.errorText.isVisible = isEmpty && viewState.showError
+        binding.matchesRecycler.isVisible = !isEmpty
+
+        val recyclerItems = buildList {
+            addAll(matches.map { match -> MatchItem(match) })
+
+            when {
+                isEmpty -> Unit
+                viewState.showLoading -> add(MatchListItem.LoadingItem)
+                viewState.showError -> add(MatchListItem.ErrorItem)
+            }
+        }
 
         // To avoid adding more items while the RecyclerView is busy drawing.
         binding.matchesRecycler.post {
-            matchListAdapter.setItems(viewState.matchList)
+            matchListAdapter.setItems(recyclerItems)
         }
     }
 
-    private fun onItemClicked(match: Match) {
-        navigator.openMatchDetails(match)
+    private fun onItemClicked(matchListItem: MatchListItem) {
+        when (matchListItem) {
+            is MatchItem -> navigator.openMatchDetails(matchListItem.match)
+            is MatchListItem.ErrorItem -> viewModel.loadMoreItems()
+            is MatchListItem.LoadingItem -> Unit
+        }
     }
 
     private fun onEndOfListApproaching() {
-        viewModel.onEndOfListApproaching()
+        viewModel.loadMoreItems()
     }
 }
