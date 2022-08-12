@@ -12,17 +12,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.YEAR
 
-private const val PAGE_SIZE = 20
+private const val PAGE_SIZE = 25
 
 class MatchListViewModel(
     private val getMatchList: GetMatchList
 ) : ViewModel() {
+
     private val _viewState = MutableLiveData<ViewState>()
     val viewState: LiveData<ViewState> = _viewState
 
-    private var currentPage = 1
-    private var isLoading = false
+    private var nextPage = 1
+    private var isLoadingNextPage = false
     private var didReachEndOfResults = false
+
     private val matchList = mutableListOf<Match>()
 
     init {
@@ -30,45 +32,47 @@ class MatchListViewModel(
     }
 
     fun refresh() {
-        currentPage = 1
+        nextPage = 1
         didReachEndOfResults = false
         matchList.clear()
 
-        loadPage()
+        viewModelScope.launch {
+            loadPage()
+        }
     }
 
-    fun onEndOfListApproaching() {
-        if (isLoading) {
+    fun loadMoreItems() {
+        if (isLoadingNextPage) {
             return
         }
 
-        currentPage++
-        loadPage()
+        isLoadingNextPage = true
+
+        viewModelScope.launch {
+            try {
+                loadPage()
+            } finally {
+                isLoadingNextPage = false
+            }
+        }
     }
 
-    private fun loadPage() {
+    private suspend fun loadPage() {
         if (didReachEndOfResults) {
             return
         }
 
-        isLoading = true
-        _viewState.value = ViewState(matchList = matchList, showLoading = matchList.isEmpty())
+        _viewState.value = ViewState(matchList = matchList, showLoading = true)
 
-        viewModelScope.launch {
-            val params = GetMatchList.Params(page = currentPage, pageSize = PAGE_SIZE, dateRange = getDateRange())
-
-            getMatchList.execute(params)
-                .onSuccess { matches ->
-                    onLoadedNewMatches(matches)
-                    isLoading = false
-                }.onFailure { error ->
-                    onLoadingFailed(error)
-                    isLoading = false
-                }
-        }
+        val params = GetMatchList.Params(page = nextPage, pageSize = PAGE_SIZE, dateRange = getDateRange())
+        getMatchList.execute(params)
+            .onSuccess { matches -> onLoadedNewMatches(matches) }
+            .onFailure { error -> onLoadingFailed(error) }
     }
 
     private fun onLoadedNewMatches(newMatches: List<Match>) {
+        nextPage++
+
         if (newMatches.isEmpty()) {
             didReachEndOfResults = true
         } else {
@@ -80,12 +84,12 @@ class MatchListViewModel(
             matchList.addAll(processedResult)
         }
 
-        _viewState.value = ViewState(matchList = matchList, showLoading = false)
+        _viewState.value = ViewState(matchList = matchList)
     }
 
     private fun onLoadingFailed(error: Throwable) {
         error.printStackTrace()
-        _viewState.value = ViewState(matchList = emptyList(), showLoading = false, showError = matchList.isEmpty())
+        _viewState.value = ViewState(matchList = matchList, showError = true)
     }
 
     private fun getDateRange(): Pair<String, String> {

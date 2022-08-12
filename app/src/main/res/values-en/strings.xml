@@ -6,5 +6,6 @@
     <string name="match_time_format_close">EEE, HH:mm</string>
     <string name="match_time_format_today">\'Today\', HH:mm</string>
     <string name="undefined">TBD</string>
-    <string name="error_text">An error has occurred. Tap here to try again.</string>
+    <string name="error_text">An error has occurred.\nTap here to try again.</string>
+    <string name="error_loading_more_text">Failed to load more matches.\nTap here to try again.</string>
 </resources>
