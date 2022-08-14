@@ -4,6 +4,7 @@ import com.vron.cstv.BuildConfig
 import com.vron.cstv.common.PANDASCORE_BASE_URL
 import com.vron.cstv.common.data.remote.AuthInterceptor
 import com.vron.cstv.common.data.remote.CsApi
+import com.vron.cstv.common.data.remote.LogInterceptor
 import com.vron.cstv.common.data.remote.RemoteMatchDataSource
 import com.vron.cstv.common.data.remote.mapper.MatchMapper
 import com.vron.cstv.common.data.remote.mapper.TeamDetailsMapper
@@ -27,9 +28,11 @@ val commonModule = module {
     factory { TeamDetailsMapper() }
 
     factory { AuthInterceptor(apiKey = BuildConfig.API_KEY) }
+    factory { LogInterceptor() }
 
     single<OkHttpClient> {
         OkHttpClient.Builder()
+            .addInterceptor(get<LogInterceptor>())
             .addInterceptor(get<AuthInterceptor>())
             .build()
     }
