@@ -1,4 +1,4 @@
-package com.vron.cstv.match_list.ui.recycler.viewholder
+package com.vron.cstv.match_list.ui.view.recycler.viewholder
 
 import android.content.Context
 import android.widget.ImageView

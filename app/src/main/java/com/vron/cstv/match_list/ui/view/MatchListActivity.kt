@@ -1,4 +1,4 @@
-package com.vron.cstv.match_list.ui
+package com.vron.cstv.match_list.ui.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +12,9 @@ import com.vron.cstv.match_list.presentation.MatchListItem
 import com.vron.cstv.match_list.presentation.MatchListItem.MatchItem
 import com.vron.cstv.match_list.presentation.MatchListViewModel
 import com.vron.cstv.match_list.presentation.ViewState
-import com.vron.cstv.match_list.ui.recycler.MarginItemDecoration
-import com.vron.cstv.match_list.ui.recycler.MatchListAdapter
+import com.vron.cstv.match_list.ui.MatchListNavigator
+import com.vron.cstv.match_list.ui.view.recycler.MarginItemDecoration
+import com.vron.cstv.match_list.ui.view.recycler.MatchListAdapter
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

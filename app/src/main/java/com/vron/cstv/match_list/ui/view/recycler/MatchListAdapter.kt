@@ -1,4 +1,4 @@
-package com.vron.cstv.match_list.ui.recycler
+package com.vron.cstv.match_list.ui.view.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +10,9 @@ import com.vron.cstv.databinding.MatchListErrorItemBinding
 import com.vron.cstv.databinding.MatchListItemBinding
 import com.vron.cstv.databinding.MatchListLoadingItemBinding
 import com.vron.cstv.match_list.presentation.MatchListItem
-import com.vron.cstv.match_list.ui.recycler.viewholder.ErrorViewHolder
-import com.vron.cstv.match_list.ui.recycler.viewholder.LoadingViewHolder
-import com.vron.cstv.match_list.ui.recycler.viewholder.MatchListItemViewHolder
+import com.vron.cstv.match_list.ui.view.recycler.viewholder.ErrorViewHolder
+import com.vron.cstv.match_list.ui.view.recycler.viewholder.LoadingViewHolder
+import com.vron.cstv.match_list.ui.view.recycler.viewholder.MatchListItemViewHolder
 
 private const val TYPE_MATCH = 0
 private const val TYPE_LOADING = 1

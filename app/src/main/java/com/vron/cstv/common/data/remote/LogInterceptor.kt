@@ -8,8 +8,8 @@ class LogInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val method = request.method()
-        val url = request.url()
+        val method = request.method
+        val url = request.url
 
         Log.d("LogInterceptor", "$method: $url")
         return chain.proceed(request)
