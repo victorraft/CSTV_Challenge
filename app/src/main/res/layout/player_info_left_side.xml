@@ -24,6 +24,7 @@
         android:layout_marginEnd="@dimen/player_picture_margin_side"
         android:layout_marginBottom="@dimen/player_picture_margin_bottom"
         android:background="@drawable/player_picture_background"
+        android:contentDescription="@string/player_picture"
         app:layout_constraintBottom_toBottomOf="@id/background"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="@id/background"
