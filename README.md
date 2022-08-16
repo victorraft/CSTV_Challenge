@@ -40,8 +40,6 @@ When running in Android 12 the Splash screen will not show the logo, if you laun
 
 ## Next steps
 Since this was done in the short span of a week, it's needless to say there is still much to be improved in the project. Some of the ideas for future improvement are:
-- Better accessibility support by adding meaningful content descriptions to all the images.
-- Make sure the UI looks good for every screen size/resolution/orientation.
-- Writing tests.
+- Writing more tests.
 - Break the `app`, `common`, `match_list` and `match_details` packages into their own separate modules.
 - Rewriting the UI layer with [Jetpack Compose](https://developer.android.com/jetpack/compose).

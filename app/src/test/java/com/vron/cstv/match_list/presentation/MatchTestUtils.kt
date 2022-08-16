@@ -7,7 +7,7 @@ import com.vron.cstv.common.domain.model.Serie
 import com.vron.cstv.match_list.domain.usecase.GetMatchList
 import java.io.IOException
 
-private val pageSize = 20
+private const val pageSize = 20
 val fakeMatchesPage1 = buildFakeMatches(1)
 val fakeMatchesPage2 = buildFakeMatches(2)
 

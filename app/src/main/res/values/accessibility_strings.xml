@@ -1,0 +1,5 @@
+<resources>
+    <string name="team_logo">Imagem do time</string>
+    <string name="league_logo">Imagem da liga</string>
+    <string name="player_picture">Foto do jogador</string>
+</resources>
