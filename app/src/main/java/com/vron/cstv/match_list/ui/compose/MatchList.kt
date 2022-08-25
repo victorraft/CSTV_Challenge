@@ -115,7 +115,7 @@ fun MatchTimeLabel(
 @Composable
 fun TeamVsTeam(team1: Team?, team2: Team?, modifier: Modifier = Modifier) {
     Row(modifier) {
-        TeamAvatarAndName(team1)
+        TeamImageAndName(team1)
 
         val vsHorizontalMargin = dimensionResource(id = R.dimen.vs_margin)
         Spacer(modifier = Modifier.size(vsHorizontalMargin))
@@ -130,27 +130,35 @@ fun TeamVsTeam(team1: Team?, team2: Team?, modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.size(vsHorizontalMargin))
 
-        TeamAvatarAndName(team2)
+        TeamImageAndName(team2)
     }
 }
 
 @Composable
-fun TeamAvatarAndName(team: Team?) {
+fun TeamImageAndName(team: Team?) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        RoundImage(
-            imageUrl = team?.imageUrl,
-            contentDescription = stringResource(id = R.string.team_logo),
-            size = dimensionResource(id = R.dimen.match_logo_size)
-        )
-
+        TeamImage(imageUrl = team?.imageUrl)
         Spacer(modifier = Modifier.size(dimensionResource(id = R.dimen.team_name_to_logo_margin)))
-
-        Text(
-            text = team?.name ?: stringResource(id = R.string.undefined),
-            fontSize = 10.sp,
-            lineHeight = 11.72.sp
-        )
+        TeamName(name = team?.name ?: stringResource(id = R.string.undefined))
     }
+}
+
+@Composable
+fun TeamImage(imageUrl: String?) {
+    RoundImage(
+        imageUrl = imageUrl,
+        contentDescription = stringResource(id = R.string.team_logo),
+        size = dimensionResource(id = R.dimen.match_logo_size)
+    )
+}
+
+@Composable
+fun TeamName(name: String?) {
+    Text(
+        text = name ?: stringResource(id = R.string.undefined),
+        fontSize = 10.sp,
+        lineHeight = 11.72.sp
+    )
 }
 
 @Composable
