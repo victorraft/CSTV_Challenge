@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -12,8 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.vron.cstv.R
 import com.vron.cstv.common.domain.fakes.buildFakeMatches
@@ -68,7 +72,13 @@ fun MatchListScreen() {
 fun MatchListScreen(viewState: ViewState) {
     Surface(color = MaterialTheme.colorScheme.background) {
         Column(Modifier.fillMaxSize()) {
-            Text(text = stringResource(id = R.string.match_list_screen_title))
+            Text(
+                text = stringResource(id = R.string.match_list_screen_title),
+                fontSize = 32.sp,
+                lineHeight = 40.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.match_item_list_spacing))
+            )
 
             MatchList(viewState.matchList)
         }

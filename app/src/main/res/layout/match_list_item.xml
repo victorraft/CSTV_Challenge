@@ -30,7 +30,7 @@
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="18.5dp"
+        android:layout_marginTop="@dimen/divider_to_team_margin"
         android:alpha="0.2"
         android:importantForAccessibility="no"
         app:dividerColor="@color/white"
