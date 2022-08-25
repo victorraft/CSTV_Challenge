@@ -173,38 +173,6 @@ fun TeamVsTeam(team1: Team?, team2: Team?, modifier: Modifier = Modifier) {
     }
 }
 
-//@Composable
-//fun TeamVsTeamOld(team1: Team?, team2: Team?, modifier: Modifier = Modifier) {
-//    Row(modifier) {
-//        val teamImageToNameMargin = dimensionResource(id = R.dimen.team_name_to_logo_margin)
-//        val vsHorizontalMargin = dimensionResource(id = R.dimen.vs_margin)
-//
-//        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//            TeamImage(imageUrl = team1?.imageUrl)
-//            Spacer(modifier = Modifier.size(teamImageToNameMargin))
-//            TeamName(name = team1?.name)
-//        }
-//
-//        Spacer(modifier = Modifier.size(vsHorizontalMargin))
-//        Text(
-//            text = stringResource(id = R.string.match_vs),
-//            fontSize = 12.sp,
-//            color = White.copy(alpha = 0.5f),
-//            lineHeight = 14.06.sp,
-//            modifier = Modifier
-//                .height(dimensionResource(id = R.dimen.match_logo_size))
-//                .align(Alignment.CenterVertically)
-//        )
-//        Spacer(modifier = Modifier.size(vsHorizontalMargin))
-//
-//        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//            TeamImage(imageUrl = team2?.imageUrl)
-//            Spacer(modifier = Modifier.size(teamImageToNameMargin))
-//            TeamName(name = team2?.name)
-//        }
-//    }
-//}
-
 @Composable
 fun TeamImage(imageUrl: String?, modifier: Modifier) {
     RoundImage(
