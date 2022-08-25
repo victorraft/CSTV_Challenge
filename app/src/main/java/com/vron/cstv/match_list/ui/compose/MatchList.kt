@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ChainStyle
+import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.vron.cstv.R
 import com.vron.cstv.common.domain.fakes.buildFakeMatch
@@ -66,10 +68,10 @@ fun MatchListItem(
             TeamVsTeam(
                 team1 = match.teams.getOrNull(0),
                 team2 = match.teams.getOrNull(1),
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(vertical = dimensionResource(id = R.dimen.team_vs_team_vertical_margin)),
             )
-
-            Spacer(modifier = Modifier.size(dimensionResource(id = R.dimen.divider_to_team_margin)))
 
             Divider(color = White.copy(alpha = 0.2f))
 
@@ -111,58 +113,120 @@ fun MatchTimeLabel(
     }
 }
 
-//TODO Fix vs alignment and team name overflow when it's too big.
+//TODO Fix team name overflow when it's too big.
 @Composable
 fun TeamVsTeam(team1: Team?, team2: Team?, modifier: Modifier = Modifier) {
-    Row(modifier) {
-        TeamImageAndName(team1)
+    ConstraintLayout(modifier = modifier.fillMaxWidth()) {
+        val (team1Image, team2Image, team1Name, team2Name, vs) = createRefs()
 
-        val vsHorizontalMargin = dimensionResource(id = R.dimen.vs_margin)
-        Spacer(modifier = Modifier.size(vsHorizontalMargin))
+        val teamImageToNameMargin = dimensionResource(id = R.dimen.team_name_to_logo_margin)
+        val vsMargin = dimensionResource(id = R.dimen.vs_margin)
+
+        createHorizontalChain(team1Image, vs, team2Image, chainStyle = ChainStyle.Packed)
+
+        TeamImage(
+            imageUrl = team1?.imageUrl,
+            modifier = Modifier.constrainAs(team1Image) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start)
+            }
+        )
+
+        TeamName(
+            name = team1?.name,
+            modifier = Modifier.constrainAs(team1Name) {
+                top.linkTo(team1Image.bottom, teamImageToNameMargin)
+                end.linkTo(team1Image.end)
+                start.linkTo(team1Image.start)
+            }
+        )
+
         Text(
             text = stringResource(id = R.string.match_vs),
             fontSize = 12.sp,
             color = White.copy(alpha = 0.5f),
             lineHeight = 14.06.sp,
             modifier = Modifier
-                .height(dimensionResource(id = R.dimen.match_logo_size))
-                .align(Alignment.CenterVertically)
+                .padding(vsMargin)
+                .constrainAs(vs) {
+                    top.linkTo(team1Image.top)
+                    bottom.linkTo(team1Image.bottom)
+                }
         )
-        Spacer(modifier = Modifier.size(vsHorizontalMargin))
 
-        TeamImageAndName(team2)
+        TeamImage(
+            imageUrl = team2?.imageUrl,
+            modifier = Modifier.constrainAs(team2Image) {
+                top.linkTo(parent.top)
+                end.linkTo(parent.end)
+            }
+        )
+
+        TeamName(
+            name = team2?.name,
+            modifier = Modifier.constrainAs(team2Name) {
+                top.linkTo(team2Image.bottom, teamImageToNameMargin)
+                start.linkTo(team2Image.start)
+                end.linkTo(team2Image.end)
+            }
+        )
     }
 }
 
-@Composable
-fun TeamImageAndName(team: Team?) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        TeamImage(imageUrl = team?.imageUrl)
-        Spacer(modifier = Modifier.size(dimensionResource(id = R.dimen.team_name_to_logo_margin)))
-        TeamName(name = team?.name ?: stringResource(id = R.string.undefined))
-    }
-}
+//@Composable
+//fun TeamVsTeamOld(team1: Team?, team2: Team?, modifier: Modifier = Modifier) {
+//    Row(modifier) {
+//        val teamImageToNameMargin = dimensionResource(id = R.dimen.team_name_to_logo_margin)
+//        val vsHorizontalMargin = dimensionResource(id = R.dimen.vs_margin)
+//
+//        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//            TeamImage(imageUrl = team1?.imageUrl)
+//            Spacer(modifier = Modifier.size(teamImageToNameMargin))
+//            TeamName(name = team1?.name)
+//        }
+//
+//        Spacer(modifier = Modifier.size(vsHorizontalMargin))
+//        Text(
+//            text = stringResource(id = R.string.match_vs),
+//            fontSize = 12.sp,
+//            color = White.copy(alpha = 0.5f),
+//            lineHeight = 14.06.sp,
+//            modifier = Modifier
+//                .height(dimensionResource(id = R.dimen.match_logo_size))
+//                .align(Alignment.CenterVertically)
+//        )
+//        Spacer(modifier = Modifier.size(vsHorizontalMargin))
+//
+//        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//            TeamImage(imageUrl = team2?.imageUrl)
+//            Spacer(modifier = Modifier.size(teamImageToNameMargin))
+//            TeamName(name = team2?.name)
+//        }
+//    }
+//}
 
 @Composable
-fun TeamImage(imageUrl: String?) {
+fun TeamImage(imageUrl: String?, modifier: Modifier) {
     RoundImage(
         imageUrl = imageUrl,
         contentDescription = stringResource(id = R.string.team_logo),
-        size = dimensionResource(id = R.dimen.match_logo_size)
+        size = dimensionResource(id = R.dimen.match_logo_size),
+        modifier = modifier
     )
 }
 
 @Composable
-fun TeamName(name: String?) {
+fun TeamName(name: String?, modifier: Modifier = Modifier) {
     Text(
         text = name ?: stringResource(id = R.string.undefined),
         fontSize = 10.sp,
-        lineHeight = 11.72.sp
+        lineHeight = 11.72.sp,
+        modifier = modifier
     )
 }
 
 @Composable
-fun LeagueAndSerieRow(league: League, serie: Serie, modifier: Modifier) {
+fun LeagueAndSerieRow(league: League, serie: Serie, modifier: Modifier = Modifier) {
     Row(
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically,
@@ -189,7 +253,8 @@ fun LeagueAndSerieRow(league: League, serie: Serie, modifier: Modifier) {
 fun RoundImage(
     imageUrl: String?,
     contentDescription: String,
-    size: Dp
+    size: Dp,
+    modifier: Modifier = Modifier
 ) {
     AsyncImage(
         model = imageUrl,
@@ -197,7 +262,7 @@ fun RoundImage(
         placeholder = ColorPainter(Gray),
         error = ColorPainter(Gray),
         contentScale = ContentScale.Crop,
-        modifier = Modifier
+        modifier = modifier
             .size(size)
             .clip(CircleShape)
     )

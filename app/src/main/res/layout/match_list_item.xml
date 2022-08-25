@@ -21,7 +21,7 @@
         android:id="@+id/teamVsTeam"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18.5dp"
+        android:layout_marginTop="@dimen/team_vs_team_vertical_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/match_time" />
@@ -30,7 +30,7 @@
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/divider_to_team_margin"
+        android:layout_marginTop="@dimen/team_vs_team_vertical_margin"
         android:alpha="0.2"
         android:importantForAccessibility="no"
         app:dividerColor="@color/white"

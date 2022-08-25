@@ -15,6 +15,6 @@
     <dimen name="player_background_offset_top">2.5dp</dimen>
     <dimen name="player_background_offset_side">-12dp</dimen>
     <dimen name="team_name_to_logo_margin">10dp</dimen>
-    <dimen name="divider_to_team_margin">18.5dp</dimen>
+    <dimen name="team_vs_team_vertical_margin">18.5dp</dimen>
     <dimen name="vs_margin">20dp</dimen>
 </resources>
