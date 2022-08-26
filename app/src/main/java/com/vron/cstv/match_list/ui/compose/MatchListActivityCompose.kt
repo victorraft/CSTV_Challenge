@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -63,13 +65,23 @@ class MatchListActivityCompose : ComponentActivity(), CoroutineScope {
 @Composable
 fun MatchListScreen() {
     val viewModel = getViewModel<MatchListViewModel>()
-    val viewState by viewModel.viewState.observeAsState()
+    val listState = rememberLazyListState()
+    val viewState by viewModel.viewState.observeAsState(ViewState())
 
-    MatchListScreen(viewState = viewState ?: ViewState())
+    MatchListScreen(viewState = viewState, listState)
+
+    InfiniteListHandler(
+        listState = listState,
+        buffer = END_OF_LIST_ITEM_COUNT,
+        onLoadMore = viewModel::loadMoreItems
+    )
 }
 
 @Composable
-fun MatchListScreen(viewState: ViewState) {
+fun MatchListScreen(
+    viewState: ViewState,
+    listState: LazyListState = rememberLazyListState()
+) {
     Surface(color = MaterialTheme.colorScheme.background) {
         Column(Modifier.fillMaxSize()) {
             Text(
@@ -80,7 +92,19 @@ fun MatchListScreen(viewState: ViewState) {
                 modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.match_item_list_spacing))
             )
 
-            MatchList(viewState.matchList)
+            val (showLoading, showError) = when {
+                viewState.matchList.isEmpty() -> false to false
+                viewState.showLoading -> true to false
+                viewState.showError -> false to true
+                else -> false to false
+            }
+
+            MatchList(
+                matches = viewState.matchList,
+                showLoadingFooter = showLoading,
+                showErrorFooter = showError,
+                listState = listState
+            )
         }
     }
 }

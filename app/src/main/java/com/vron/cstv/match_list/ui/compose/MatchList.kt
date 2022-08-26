@@ -3,12 +3,11 @@ package com.vron.cstv.match_list.ui.compose
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,16 +34,61 @@ import com.vron.cstv.common.ui.theme.*
 import org.koin.androidx.compose.get
 
 @Composable
-fun MatchList(matches: List<Match>) {
+fun MatchList(
+    matches: List<Match>,
+    showLoadingFooter: Boolean = false,
+    showErrorFooter: Boolean = false,
+    listState: LazyListState = rememberLazyListState(),
+) {
     val itemPadding = dimensionResource(id = R.dimen.match_item_list_spacing)
+    val itemPaddingModifier = Modifier.padding(horizontal = itemPadding, vertical = itemPadding / 2)
 
-    LazyColumn {
+    LazyColumn(state = listState) {
         items(matches) { match ->
             MatchListItem(
                 match = match,
-                modifier = Modifier.padding(horizontal = itemPadding, vertical = itemPadding / 2)
+                modifier = itemPaddingModifier
             )
         }
+
+        if (showLoadingFooter) {
+            item {
+                ListLoadingItem(modifier = itemPaddingModifier)
+            }
+        } else if (showErrorFooter) {
+            item {
+                ListErrorItem(modifier = itemPaddingModifier)
+            }
+        }
+    }
+}
+
+@Composable
+fun ListLoadingItem(modifier: Modifier = Modifier) {
+    ElevatedCard(
+        shape = CardShape,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(dimensionResource(id = R.dimen.loading_footer_height))
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+        ) {
+            CircularProgressIndicator(color = MaterialTheme.colorScheme.onSurface)
+        }
+    }
+}
+
+@Composable
+fun ListErrorItem(modifier: Modifier = Modifier) {
+    ElevatedCard(
+        shape = CardShape,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        // TODO
     }
 }
 
