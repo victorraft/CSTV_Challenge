@@ -1,4 +1,4 @@
-package com.vron.cstv.common.ui
+package com.vron.cstv.common.ui.view
 
 import android.content.Context
 import android.util.AttributeSet

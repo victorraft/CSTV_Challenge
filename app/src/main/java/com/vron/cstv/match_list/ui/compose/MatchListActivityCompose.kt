@@ -23,9 +23,11 @@ import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.vron.cstv.R
 import com.vron.cstv.common.domain.fakes.buildFakeMatches
-import com.vron.cstv.common.ui.theme.CSTVTheme
+import com.vron.cstv.common.ui.compose.theme.CSTVTheme
 import com.vron.cstv.match_list.presentation.MatchListViewModel
 import com.vron.cstv.match_list.presentation.ViewState
+import com.vron.cstv.match_list.ui.compose.list.InfiniteListHandler
+import com.vron.cstv.match_list.ui.compose.list.MatchList
 import kotlinx.coroutines.*
 import org.koin.androidx.compose.getViewModel
 import kotlin.coroutines.CoroutineContext

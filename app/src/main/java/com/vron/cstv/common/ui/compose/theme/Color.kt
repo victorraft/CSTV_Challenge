@@ -1,4 +1,4 @@
-package com.vron.cstv.common.ui.theme
+package com.vron.cstv.common.ui.compose.theme
 
 import androidx.compose.ui.graphics.Color
 

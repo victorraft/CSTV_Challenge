@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="AGORA" />
 
-    <com.vron.cstv.common.ui.TeamVsTeamView
+    <com.vron.cstv.common.ui.view.TeamVsTeamView
         android:id="@+id/teamVsTeam"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

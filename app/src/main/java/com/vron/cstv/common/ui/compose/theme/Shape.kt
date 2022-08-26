@@ -1,4 +1,4 @@
-package com.vron.cstv.common.ui.theme
+package com.vron.cstv.common.ui.compose.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp

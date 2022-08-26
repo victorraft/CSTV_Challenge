@@ -1,4 +1,4 @@
-package com.vron.cstv.match_list.ui.compose
+package com.vron.cstv.match_list.ui.compose.list
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.*
