@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/match_item_background"
-    android:minHeight="100dp"
+    android:minHeight="@dimen/error_footer_min_height"
     android:padding="16dp">
 
     <TextView

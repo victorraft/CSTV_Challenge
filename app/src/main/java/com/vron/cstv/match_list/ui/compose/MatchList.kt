@@ -18,6 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -38,6 +39,7 @@ fun MatchList(
     matches: List<Match>,
     showLoadingFooter: Boolean = false,
     showErrorFooter: Boolean = false,
+    onErrorClick: () -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
 ) {
     val itemPadding = dimensionResource(id = R.dimen.match_item_list_spacing)
@@ -57,7 +59,7 @@ fun MatchList(
             }
         } else if (showErrorFooter) {
             item {
-                ListErrorItem(modifier = itemPaddingModifier)
+                ListErrorItem(modifier = itemPaddingModifier, onClick = onErrorClick)
             }
         }
     }
@@ -65,11 +67,8 @@ fun MatchList(
 
 @Composable
 fun ListLoadingItem(modifier: Modifier = Modifier) {
-    ElevatedCard(
-        shape = CardShape,
-        modifier = modifier
-            .fillMaxWidth()
-            .height(dimensionResource(id = R.dimen.loading_footer_height))
+    MatchListCard(
+        modifier = modifier.height(dimensionResource(id = R.dimen.loading_footer_height))
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -83,13 +82,36 @@ fun ListLoadingItem(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ListErrorItem(modifier: Modifier = Modifier) {
+fun ListErrorItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    MatchListCard(modifier = modifier) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .defaultMinSize(minHeight = dimensionResource(id = R.dimen.error_footer_min_height))
+                .clickable { onClick() }
+        ) {
+            Text(
+                text = stringResource(id = R.string.error_loading_more_text),
+                fontSize = 18.sp,
+                lineHeight = 24.sp,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+@Composable
+fun MatchListCard(
+    modifier: Modifier = Modifier,
+    content: @Composable ColumnScope.() -> Unit
+) {
     ElevatedCard(
         shape = CardShape,
-        modifier = modifier.fillMaxWidth()
-    ) {
-        // TODO
-    }
+        modifier = modifier.fillMaxWidth(),
+        content = content,
+    )
 }
 
 @Composable
@@ -98,14 +120,9 @@ fun MatchListItem(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    ElevatedCard(
-        shape = CardShape,
-        modifier = modifier.fillMaxWidth()
-    ) {
+    MatchListCard(modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onClick() }
+            modifier = Modifier.clickable { onClick() }
         ) {
             MatchTimeLabel(match, modifier = Modifier.align(Alignment.End))
 

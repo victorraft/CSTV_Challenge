@@ -68,7 +68,11 @@ fun MatchListScreen() {
     val listState = rememberLazyListState()
     val viewState by viewModel.viewState.observeAsState(ViewState())
 
-    MatchListScreen(viewState = viewState, listState)
+    MatchListScreen(
+        viewState = viewState,
+        listState = listState,
+        onErrorClick = viewModel::loadMoreItems
+    )
 
     InfiniteListHandler(
         listState = listState,
@@ -80,7 +84,8 @@ fun MatchListScreen() {
 @Composable
 fun MatchListScreen(
     viewState: ViewState,
-    listState: LazyListState = rememberLazyListState()
+    listState: LazyListState = rememberLazyListState(),
+    onErrorClick: () -> Unit = {}
 ) {
     Surface(color = MaterialTheme.colorScheme.background) {
         Column(Modifier.fillMaxSize()) {
@@ -103,7 +108,8 @@ fun MatchListScreen(
                 matches = viewState.matchList,
                 showLoadingFooter = showLoading,
                 showErrorFooter = showError,
-                listState = listState
+                listState = listState,
+                onErrorClick = onErrorClick
             )
         }
     }
