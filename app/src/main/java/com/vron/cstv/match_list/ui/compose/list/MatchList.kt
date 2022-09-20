@@ -30,6 +30,7 @@ fun MatchList(
     matches: List<Match>,
     showLoadingFooter: Boolean = false,
     showErrorFooter: Boolean = false,
+    onItemClick: (Match) -> Unit = {},
     onErrorClick: () -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -40,7 +41,8 @@ fun MatchList(
         items(matches) { match ->
             MatchListItem(
                 match = match,
-                modifier = itemPaddingModifier
+                modifier = itemPaddingModifier,
+                onClick = { onItemClick(match) }
             )
         }
 

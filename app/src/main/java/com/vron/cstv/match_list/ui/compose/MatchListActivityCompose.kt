@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -22,15 +23,19 @@ import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.vron.cstv.R
 import com.vron.cstv.common.domain.fakes.buildFakeMatches
+import com.vron.cstv.common.domain.model.Match
 import com.vron.cstv.common.ui.compose.theme.CSTVTheme
 import com.vron.cstv.match_list.presentation.MatchListViewModel
 import com.vron.cstv.match_list.presentation.ViewState
+import com.vron.cstv.match_list.ui.MatchListNavigator
 import com.vron.cstv.match_list.ui.compose.list.ErrorMessage
 import com.vron.cstv.match_list.ui.compose.list.InfiniteListHandler
 import com.vron.cstv.match_list.ui.compose.list.LoadingBar
 import com.vron.cstv.match_list.ui.compose.list.MatchList
 import kotlinx.coroutines.*
+import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 import kotlin.coroutines.CoroutineContext
 
 private const val SPLASHSCREEN_DURATION_MS = 1500L
@@ -71,10 +76,16 @@ fun MatchListScreen() {
     val listState = rememberLazyListState()
     val viewState by viewModel.viewState.observeAsState(ViewState())
 
+    val context = LocalContext.current
+    val navigator: MatchListNavigator = get { parametersOf(context) }
+
     MatchListScreen(
         viewState = viewState,
         listState = listState,
-        onErrorClick = viewModel::loadMoreItems
+        onErrorClick = viewModel::loadMoreItems,
+        onItemClick = { match ->
+            navigator.openMatchDetails(match)
+        }
     )
 
     InfiniteListHandler(
@@ -88,6 +99,7 @@ fun MatchListScreen() {
 fun MatchListScreen(
     viewState: ViewState,
     listState: LazyListState = rememberLazyListState(),
+    onItemClick: (Match) -> Unit = {},
     onErrorClick: () -> Unit = {}
 ) {
     Surface(color = MaterialTheme.colorScheme.background) {
@@ -113,6 +125,7 @@ fun MatchListScreen(
                         showLoadingFooter = showLoadingFooter,
                         showErrorFooter = showErrorFooter,
                         listState = listState,
+                        onItemClick = onItemClick,
                         onErrorClick = onErrorClick
                     )
                 }
