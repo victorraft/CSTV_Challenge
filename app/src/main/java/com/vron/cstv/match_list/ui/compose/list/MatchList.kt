@@ -112,3 +112,18 @@ fun MatchListPreview() {
         MatchList(matches = buildFakeMatches())
     }
 }
+@Preview
+@Composable
+fun MatchListLoadingPreview() {
+    CSTVTheme {
+        MatchList(matches = emptyList(), showLoadingFooter = true)
+    }
+}
+
+@Preview
+@Composable
+fun MatchListErrorPreview() {
+    CSTVTheme {
+        MatchList(matches = emptyList(), showErrorFooter = true)
+    }
+}

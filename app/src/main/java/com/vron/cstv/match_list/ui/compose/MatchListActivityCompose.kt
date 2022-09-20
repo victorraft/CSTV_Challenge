@@ -38,7 +38,7 @@ private const val END_OF_LIST_ITEM_COUNT = 5
 class MatchListActivityCompose : ComponentActivity(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext
-            by lazy { Dispatchers.Default + SupervisorJob() }
+        by lazy { Dispatchers.Default + SupervisorJob() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,5 +122,21 @@ fun MatchListScreen(
 fun DefaultPreview() {
     CSTVTheme {
         MatchListScreen(ViewState(matchList = buildFakeMatches()))
+    }
+}
+
+@Preview
+@Composable
+fun LoadingPreview() {
+    CSTVTheme {
+        MatchListScreen(ViewState(matchList = emptyList(), showLoading = true))
+    }
+}
+
+@Preview
+@Composable
+fun ErrorPreview() {
+    CSTVTheme {
+        MatchListScreen(ViewState(matchList = emptyList(), showError = true))
     }
 }
