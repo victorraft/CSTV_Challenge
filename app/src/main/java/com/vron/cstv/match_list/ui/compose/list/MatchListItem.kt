@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,7 +27,6 @@ import com.vron.cstv.common.ui.compose.theme.CSTVTheme
 import com.vron.cstv.common.ui.compose.theme.Red
 import com.vron.cstv.common.ui.compose.theme.TimeLabelShape
 import com.vron.cstv.common.ui.compose.theme.White
-import org.koin.androidx.compose.get
 
 
 @Composable
@@ -39,7 +39,10 @@ fun MatchListItem(
         Column(
             modifier = Modifier.clickable { onClick() }
         ) {
-            MatchTimeLabel(match, modifier = Modifier.align(Alignment.End))
+            MatchTimeLabel(
+                match,
+                modifier = Modifier.align(Alignment.End)
+            )
 
             TeamVsTeam(
                 team1 = match.teams.getOrNull(0),
@@ -65,7 +68,7 @@ fun MatchListItem(
 @Composable
 fun MatchTimeLabel(
     match: Match,
-    dateFormatter: DateFormatter = get(),
+    dateFormatter: DateFormatter = DateFormatter(LocalContext.current),
     modifier: Modifier = Modifier
 ) {
     val color = if (match.status == MatchStatus.RUNNING) Red else Color(0x33FAFAFA)
