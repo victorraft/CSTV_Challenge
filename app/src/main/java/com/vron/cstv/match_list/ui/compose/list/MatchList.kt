@@ -73,35 +73,49 @@ fun ListLoadingItem(modifier: Modifier = Modifier) {
     MatchListCard(
         modifier = modifier.height(dimensionResource(id = R.dimen.loading_footer_height))
     ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
+        LoadingBar(
+            Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-        ) {
-            CircularProgressIndicator(color = MaterialTheme.colorScheme.onSurface)
-        }
+        )
+    }
+}
+
+@Composable
+fun LoadingBar(modifier: Modifier = Modifier) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+    ) {
+        CircularProgressIndicator(color = MaterialTheme.colorScheme.onSurface)
     }
 }
 
 @Composable
 fun ListErrorItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
     MatchListCard(modifier = modifier) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
+        ErrorMessage(
+            Modifier
                 .fillMaxWidth()
                 .defaultMinSize(minHeight = dimensionResource(id = R.dimen.error_footer_min_height))
                 .clickable { onClick() }
-        ) {
-            Text(
-                text = stringResource(id = R.string.error_loading_more_text),
-                fontSize = 18.sp,
-                lineHeight = 24.sp,
-                fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Center
-            )
-        }
+        )
+    }
+}
+
+@Composable
+fun ErrorMessage(modifier: Modifier = Modifier) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+    ) {
+        Text(
+            text = stringResource(id = R.string.error_loading_more_text),
+            fontSize = 18.sp,
+            lineHeight = 24.sp,
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Center
+        )
     }
 }
 
@@ -112,6 +126,7 @@ fun MatchListPreview() {
         MatchList(matches = buildFakeMatches())
     }
 }
+
 @Preview
 @Composable
 fun MatchListLoadingPreview() {

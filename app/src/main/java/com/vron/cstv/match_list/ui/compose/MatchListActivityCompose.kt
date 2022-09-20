@@ -3,9 +3,8 @@ package com.vron.cstv.match_list.ui.compose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
@@ -26,7 +25,9 @@ import com.vron.cstv.common.domain.fakes.buildFakeMatches
 import com.vron.cstv.common.ui.compose.theme.CSTVTheme
 import com.vron.cstv.match_list.presentation.MatchListViewModel
 import com.vron.cstv.match_list.presentation.ViewState
+import com.vron.cstv.match_list.ui.compose.list.ErrorMessage
 import com.vron.cstv.match_list.ui.compose.list.InfiniteListHandler
+import com.vron.cstv.match_list.ui.compose.list.LoadingBar
 import com.vron.cstv.match_list.ui.compose.list.MatchList
 import kotlinx.coroutines.*
 import org.koin.androidx.compose.getViewModel
@@ -99,20 +100,42 @@ fun MatchListScreen(
                 modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.match_item_list_spacing))
             )
 
-            val (showLoading, showError) = when {
-                viewState.matchList.isEmpty() -> false to false
-                viewState.showLoading -> true to false
-                viewState.showError -> false to true
-                else -> false to false
-            }
+            when {
+                viewState.matchList.isNotEmpty() -> {
+                    val (showLoadingFooter, showErrorFooter) = when {
+                        viewState.showLoading -> true to false
+                        viewState.showError -> false to true
+                        else -> false to false
+                    }
 
-            MatchList(
-                matches = viewState.matchList,
-                showLoadingFooter = showLoading,
-                showErrorFooter = showError,
-                listState = listState,
-                onErrorClick = onErrorClick
-            )
+                    MatchList(
+                        matches = viewState.matchList,
+                        showLoadingFooter = showLoadingFooter,
+                        showErrorFooter = showErrorFooter,
+                        listState = listState,
+                        onErrorClick = onErrorClick
+                    )
+                }
+
+                viewState.showLoading -> {
+                    LoadingBar(
+                        Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight()
+                    )
+                }
+
+                viewState.showError -> {
+                    ErrorMessage(
+                        Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight()
+                            .clickable { onErrorClick() }
+                    )
+                }
+
+                else -> {}
+            }
         }
     }
 }
