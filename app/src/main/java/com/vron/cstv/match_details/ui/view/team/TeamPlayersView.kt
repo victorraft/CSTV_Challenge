@@ -1,6 +1,6 @@
-package com.vron.cstv.match_details.ui.team
+package com.vron.cstv.match_details.ui.view.team
 
-import com.vron.cstv.match_details.ui.player.PlayerInfoView
+import com.vron.cstv.match_details.ui.view.player.PlayerInfoView
 
 interface TeamPlayersView {
     val player1: PlayerInfoView

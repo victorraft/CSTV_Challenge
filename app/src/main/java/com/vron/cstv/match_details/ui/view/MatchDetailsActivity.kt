@@ -1,4 +1,4 @@
-package com.vron.cstv.match_details.ui
+package com.vron.cstv.match_details.ui.view
 
 import android.content.Context
 import android.content.Intent
@@ -15,8 +15,8 @@ import com.vron.cstv.common.presentation.DateFormatter
 import com.vron.cstv.databinding.ActivityMatchDetailsBinding
 import com.vron.cstv.match_details.presentation.MatchDetailsViewModel
 import com.vron.cstv.match_details.presentation.ViewState
-import com.vron.cstv.match_details.ui.player.PlayerInfoView
-import com.vron.cstv.match_details.ui.team.TeamPlayersView
+import com.vron.cstv.match_details.ui.view.player.PlayerInfoView
+import com.vron.cstv.match_details.ui.view.team.TeamPlayersView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

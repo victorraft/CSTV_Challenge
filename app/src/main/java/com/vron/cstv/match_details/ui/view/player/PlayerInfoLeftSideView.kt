@@ -1,4 +1,4 @@
-package com.vron.cstv.match_details.ui.player
+package com.vron.cstv.match_details.ui.view.player
 
 import android.content.Context
 import android.util.AttributeSet

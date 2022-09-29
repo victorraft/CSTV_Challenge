@@ -1,19 +1,19 @@
-package com.vron.cstv.match_details.ui.team
+package com.vron.cstv.match_details.ui.view.team
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import com.vron.cstv.databinding.TeamPlayersRightSideBinding
-import com.vron.cstv.match_details.ui.player.PlayerInfoView
+import com.vron.cstv.databinding.TeamPlayersLeftSideBinding
+import com.vron.cstv.match_details.ui.view.player.PlayerInfoView
 
-class TeamPlayersRightSideView : LinearLayout, TeamPlayersView {
+class TeamPlayersLeftSideView : LinearLayout, TeamPlayersView {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    private val binding = TeamPlayersRightSideBinding.inflate(LayoutInflater.from(context), this)
+    private val binding = TeamPlayersLeftSideBinding.inflate(LayoutInflater.from(context), this)
 
     override val player1: PlayerInfoView
         get() = binding.player1

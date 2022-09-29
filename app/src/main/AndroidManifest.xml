@@ -33,7 +33,7 @@
 <!--            </intent-filter>-->
         </activity>
         <activity
-            android:name=".match_details.ui.MatchDetailsActivity"
+            android:name=".match_details.ui.view.MatchDetailsActivity"
             android:exported="false" />
 
         <meta-data
