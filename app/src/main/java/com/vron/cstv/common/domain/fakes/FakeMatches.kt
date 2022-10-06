@@ -17,3 +17,11 @@ fun buildFakeMatch(id: Int = 0) = Match(
 fun buildFakeMatches(page: Int = 1, pageSize: Int = 5) = List(pageSize) {
     buildFakeMatch(id = it + (pageSize * page - 1))
 }
+
+fun buildFakePlayer(): Player = Player(
+    id = 0,
+    firstName = "firstName",
+    lastName = "lastName",
+    name = "name",
+    imageUrl = ""
+)
