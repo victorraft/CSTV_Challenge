@@ -167,6 +167,10 @@ fun MatchDetailsLoaded(
         )
 
         MatchTime(match)
+
+        if (team1Details != null) {
+            TeamPlayers(players = team1Details.players)
+        }
     }
 }
 

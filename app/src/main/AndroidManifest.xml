@@ -15,25 +15,24 @@
             android:name=".match_list.ui.compose.MatchListActivityCompose"
             android:exported="true"
             android:theme="@style/Theme.FuzeSplash">
-                        <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
             android:name=".match_list.ui.view.MatchListActivity"
             android:exported="true"
-            android:theme="@style/Theme.FuzeSplash">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            android:theme="@style/Theme.FuzeSplash" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
         <activity
             android:name=".match_details.ui.view.MatchDetailsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.vron.cstv.match_details.ui.compose.MatchDetailsActivityCompose"
             android:exported="false" />
 
         <meta-data

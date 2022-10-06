@@ -2,7 +2,7 @@ package com.vron.cstv.app
 
 import android.app.Activity
 import com.vron.cstv.common.domain.model.Match
-import com.vron.cstv.match_details.ui.view.MatchDetailsActivity
+import com.vron.cstv.match_details.ui.compose.MatchDetailsActivityCompose
 import com.vron.cstv.match_list.ui.MatchListNavigator
 
 class AppNavigator(
@@ -10,7 +10,7 @@ class AppNavigator(
 ) : MatchListNavigator {
 
     override fun openMatchDetails(match: Match) {
-        val intent = MatchDetailsActivity.buildIntent(activity, match)
+        val intent = MatchDetailsActivityCompose.buildIntent(activity, match)
         activity.startActivity(intent)
     }
 }

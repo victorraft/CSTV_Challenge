@@ -54,7 +54,6 @@
         android:layout_marginEnd="@dimen/player_name_margin_side"
         android:gravity="end"
         app:layout_constraintBottom_toBottomOf="@id/player_picture"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@id/player_picture"
         tools:text="@tools:sample/full_names" />
 </merge>
