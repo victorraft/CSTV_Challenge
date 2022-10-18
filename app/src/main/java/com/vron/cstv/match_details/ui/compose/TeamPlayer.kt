@@ -56,7 +56,7 @@ fun TeamPlayer(
 
         val topMargin = dimensionResource(id = R.dimen.player_background_offset_top)
         Surface(
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.surface,
             shape = if (isLeftSidePlayer) LeftSidePlayerShape else RightSidePlayerShape,
             modifier = Modifier.constrainAs(background) {
                 top.linkTo(playerPicture.top, margin = topMargin)
