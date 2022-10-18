@@ -6,22 +6,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import com.vron.cstv.R
 import com.vron.cstv.common.domain.fakes.buildFakeMatches
 import com.vron.cstv.common.domain.model.Match
+import com.vron.cstv.common.ui.compose.ErrorMessage
+import com.vron.cstv.common.ui.compose.LoadingBar
 import com.vron.cstv.common.ui.compose.theme.CSTVTheme
 import com.vron.cstv.common.ui.compose.theme.CardShape
 
@@ -84,39 +79,14 @@ fun ListLoadingItem(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LoadingBar(modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-    ) {
-        CircularProgressIndicator(color = MaterialTheme.colorScheme.onSurface)
-    }
-}
-
-@Composable
 fun ListErrorItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
     MatchListCard(modifier = modifier) {
         ErrorMessage(
-            Modifier
+            text = stringResource(id = R.string.error_loading_more_text),
+            modifier = Modifier
                 .fillMaxWidth()
                 .defaultMinSize(minHeight = dimensionResource(id = R.dimen.error_footer_min_height))
                 .clickable { onClick() }
-        )
-    }
-}
-
-@Composable
-fun ErrorMessage(modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-    ) {
-        Text(
-            text = stringResource(id = R.string.error_loading_more_text),
-            fontSize = 18.sp,
-            lineHeight = 24.sp,
-            fontWeight = FontWeight.Medium,
-            textAlign = TextAlign.Center
         )
     }
 }

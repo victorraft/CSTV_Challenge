@@ -24,13 +24,13 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.vron.cstv.R
 import com.vron.cstv.common.domain.fakes.buildFakeMatches
 import com.vron.cstv.common.domain.model.Match
+import com.vron.cstv.common.ui.compose.ErrorMessage
+import com.vron.cstv.common.ui.compose.LoadingBar
 import com.vron.cstv.common.ui.compose.theme.CSTVTheme
 import com.vron.cstv.match_list.presentation.MatchListViewModel
 import com.vron.cstv.match_list.presentation.ViewState
 import com.vron.cstv.match_list.ui.MatchListNavigator
-import com.vron.cstv.match_list.ui.compose.list.ErrorMessage
 import com.vron.cstv.match_list.ui.compose.list.InfiniteListHandler
-import com.vron.cstv.match_list.ui.compose.list.LoadingBar
 import com.vron.cstv.match_list.ui.compose.list.MatchList
 import kotlinx.coroutines.*
 import org.koin.androidx.compose.get
@@ -44,7 +44,7 @@ private const val END_OF_LIST_ITEM_COUNT = 5
 class MatchListActivityCompose : ComponentActivity(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext
-        by lazy { Dispatchers.Default + SupervisorJob() }
+            by lazy { Dispatchers.Default + SupervisorJob() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -140,7 +140,8 @@ fun MatchListScreen(
 
                 viewState.showError -> {
                     ErrorMessage(
-                        Modifier
+                        text = stringResource(id = R.string.error_loading_more_text),
+                        modifier = Modifier
                             .fillMaxWidth()
                             .fillMaxHeight()
                             .clickable { onErrorClick() }

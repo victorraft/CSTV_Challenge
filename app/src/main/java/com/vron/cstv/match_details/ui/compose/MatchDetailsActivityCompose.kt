@@ -6,10 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -18,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -32,6 +31,8 @@ import com.vron.cstv.common.domain.model.Match
 import com.vron.cstv.common.domain.model.Player
 import com.vron.cstv.common.domain.model.TeamDetails
 import com.vron.cstv.common.presentation.DateFormatter
+import com.vron.cstv.common.ui.compose.ErrorMessage
+import com.vron.cstv.common.ui.compose.LoadingBar
 import com.vron.cstv.common.ui.compose.theme.CSTVTheme
 import com.vron.cstv.databinding.ActivityMatchDetailsBinding
 import com.vron.cstv.match_details.presentation.MatchDetailsViewModel
@@ -130,7 +131,10 @@ class MatchDetailsActivityCompose : AppCompatActivity() {
 }
 
 @Composable
-fun MatchDetailsScreen(viewState: ViewState) {
+fun MatchDetailsScreen(
+    viewState: ViewState,
+    onErrorClick: () -> Unit = {},
+) {
     val match = viewState.match
     Scaffold(
         topBar = {
@@ -141,8 +145,20 @@ fun MatchDetailsScreen(viewState: ViewState) {
         }
     ) {
         when {
-            viewState.showLoading -> {}
-            viewState.showError -> {}
+            viewState.showLoading -> LoadingBar(
+                Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            )
+
+            viewState.showError -> ErrorMessage(
+                text = stringResource(id = R.string.error_text),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .clickable { onErrorClick() }
+            )
+
             else -> MatchDetailsLoaded(
                 match = match,
                 team1Details = viewState.team1Details,
@@ -172,24 +188,30 @@ fun MatchDetailsLoaded(
         MatchTime(match)
 
         Row {
-            if (team1Details != null) {
-                TeamPlayers(
-                    players = team1Details.players,
-                    isLeftSideTeam = true,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                if (team1Details != null) {
+                    TeamPlayers(
+                        players = team1Details.players,
+                        isLeftSideTeam = true
+                    )
+                }
             }
 
-            if (team2Details != null) {
-                TeamPlayers(
-                    players = team2Details.players,
-                    isLeftSideTeam = false,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                if (team2Details != null) {
+                    TeamPlayers(
+                        players = team2Details.players,
+                        isLeftSideTeam = false
+                    )
+                }
             }
         }
     }
@@ -239,6 +261,47 @@ fun MatchDetailsPreview() {
                 match = buildFakeMatch(),
                 team1Details = TeamDetails(123, players),
                 team2Details = TeamDetails(456, players),
+            )
+        )
+    }
+}
+
+@Preview
+@Composable
+fun MatchDetailsSingleTeamPreview() {
+    val players = List(5) { buildFakePlayer() }
+
+    CSTVTheme {
+        MatchDetailsScreen(
+            ViewState(
+                match = buildFakeMatch(),
+                team1Details = TeamDetails(123, players),
+            )
+        )
+    }
+}
+
+@Preview
+@Composable
+fun MatchDetailsLoadingPreview() {
+    CSTVTheme {
+        MatchDetailsScreen(
+            ViewState(
+                match = buildFakeMatch(),
+                showLoading = true
+            )
+        )
+    }
+}
+
+@Preview
+@Composable
+fun MatchDetailsErrorPreview() {
+    CSTVTheme {
+        MatchDetailsScreen(
+            ViewState(
+                match = buildFakeMatch(),
+                showError = true
             )
         )
     }
