@@ -7,6 +7,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -25,6 +27,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.vron.cstv.R
 import com.vron.cstv.common.domain.fakes.buildFakeMatch
+import com.vron.cstv.common.domain.fakes.buildFakePlayer
 import com.vron.cstv.common.domain.model.Match
 import com.vron.cstv.common.domain.model.Player
 import com.vron.cstv.common.domain.model.TeamDetails
@@ -168,8 +171,26 @@ fun MatchDetailsLoaded(
 
         MatchTime(match)
 
-        if (team1Details != null) {
-            TeamPlayers(players = team1Details.players)
+        Row {
+            if (team1Details != null) {
+                TeamPlayers(
+                    players = team1Details.players,
+                    isLeftSideTeam = true,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                )
+            }
+
+            if (team2Details != null) {
+                TeamPlayers(
+                    players = team2Details.players,
+                    isLeftSideTeam = false,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                )
+            }
         }
     }
 }
@@ -210,7 +231,15 @@ fun MatchTime(
 @Preview
 @Composable
 fun MatchDetailsPreview() {
+    val players = List(5) { buildFakePlayer() }
+
     CSTVTheme {
-        MatchDetailsScreen(ViewState(buildFakeMatch()))
+        MatchDetailsScreen(
+            ViewState(
+                match = buildFakeMatch(),
+                team1Details = TeamDetails(123, players),
+                team2Details = TeamDetails(456, players),
+            )
+        )
     }
 }

@@ -28,7 +28,7 @@ import com.vron.cstv.common.ui.compose.theme.PlayerPictureShape
 @Composable
 fun TeamPlayer(
     player: Player,
-    isLeftSidePlayer: Boolean = true
+    isLeftSidePlayer: Boolean
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -58,9 +58,14 @@ fun TeamPlayer(
             modifier = Modifier
                 .constrainAs(playerPicture) {
                     bottom.linkTo(background.bottom, pictureMarginBottom)
-                    end.linkTo(background.end, pictureMarginEnd)
                     top.linkTo(parent.top, pictureMarginTop)
                     top.linkTo(parent.top)
+
+                    if (isLeftSidePlayer) {
+                        end.linkTo(background.end, pictureMarginEnd)
+                    } else {
+                        start.linkTo(background.start, pictureMarginEnd)
+                    }
                 }
         )
 
@@ -69,11 +74,17 @@ fun TeamPlayer(
             text = player.name,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.constrainAs(playerNickname) {
-                bottom.linkTo(playerName.top)
-                end.linkTo(playerPicture.start, margin = margin)
-                top.linkTo(background.top)
                 width = Dimension.fillToConstraints
                 height = Dimension.wrapContent
+
+                bottom.linkTo(playerName.top)
+                top.linkTo(background.top)
+
+                if (isLeftSidePlayer) {
+                    end.linkTo(playerPicture.start, margin = margin)
+                } else {
+                    start.linkTo(playerPicture.end, margin = margin)
+                }
             }
         )
 
@@ -81,10 +92,16 @@ fun TeamPlayer(
             text = "${player.firstName.trim()} ${player.lastName.trim()}",
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.constrainAs(playerName) {
-                bottom.linkTo(playerPicture.bottom)
-                end.linkTo(playerPicture.start, margin = margin)
                 width = Dimension.fillToConstraints
                 height = Dimension.wrapContent
+
+                bottom.linkTo(playerPicture.bottom)
+
+                if (isLeftSidePlayer) {
+                    end.linkTo(playerPicture.start, margin = margin)
+                } else {
+                    start.linkTo(playerPicture.end, margin = margin)
+                }
             }
         )
     }
@@ -106,8 +123,16 @@ fun PlayerPicture(avatarUrl: String?, modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun PlayerPreview() {
+fun PlayerLeftSidePreview() {
     CSTVTheme {
-        TeamPlayer(player = buildFakePlayer())
+        TeamPlayer(player = buildFakePlayer(), isLeftSidePlayer = true)
+    }
+}
+
+@Preview
+@Composable
+fun PlayerRightSidePreview() {
+    CSTVTheme {
+        TeamPlayer(player = buildFakePlayer(), isLeftSidePlayer = false)
     }
 }
