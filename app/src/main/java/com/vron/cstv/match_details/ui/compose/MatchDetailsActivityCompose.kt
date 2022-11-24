@@ -9,6 +9,8 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -88,6 +90,8 @@ fun MatchDetailsScreen(
     onErrorClick: () -> Unit = {},
 ) {
     val match = viewState.match
+    val scrollState = rememberScrollState()
+
     Scaffold(
         topBar = {
             MatchDetailsAppbar(
@@ -95,7 +99,7 @@ fun MatchDetailsScreen(
                 onBackArrowClick = {},
             )
         }
-    ) {
+    ) { padding ->
         when {
             viewState.showLoading -> LoadingBar(
                 Modifier
@@ -115,7 +119,9 @@ fun MatchDetailsScreen(
                 match = match,
                 team1Details = viewState.team1Details,
                 team2Details = viewState.team2Details,
-                modifier = Modifier.padding(it)
+                modifier = Modifier
+                    .padding(padding)
+                    .verticalScroll(scrollState)
             )
         }
     }
