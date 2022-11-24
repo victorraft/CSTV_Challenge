@@ -53,7 +53,7 @@ class MatchDetailsActivityCompose : AppCompatActivity() {
 
         setContent {
             CSTVTheme {
-                MatchDetailsScreen(match)
+                MatchDetailsScreen(match, onBackArrowClick = { finish() })
             }
         }
     }
@@ -70,7 +70,7 @@ class MatchDetailsActivityCompose : AppCompatActivity() {
 }
 
 @Composable
-fun MatchDetailsScreen(match: Match) {
+fun MatchDetailsScreen(match: Match, onBackArrowClick: () -> Unit) {
     val viewModel = getViewModel<MatchDetailsViewModel>()
     val viewState by viewModel.viewState.observeAsState(ViewState(match))
 
@@ -80,6 +80,7 @@ fun MatchDetailsScreen(match: Match) {
 
     MatchDetailsScreen(
         viewState = viewState,
+        onBackArrowClick = onBackArrowClick,
         onErrorClick = { viewModel.initialize(match) }
     )
 }
@@ -87,6 +88,7 @@ fun MatchDetailsScreen(match: Match) {
 @Composable
 fun MatchDetailsScreen(
     viewState: ViewState,
+    onBackArrowClick: () -> Unit = {},
     onErrorClick: () -> Unit = {},
 ) {
     val match = viewState.match
@@ -96,7 +98,7 @@ fun MatchDetailsScreen(
         topBar = {
             MatchDetailsAppbar(
                 title = "${match.league.name} - ${match.serie.fullName}",
-                onBackArrowClick = {},
+                onBackArrowClick = { onBackArrowClick() },
             )
         }
     ) { padding ->
