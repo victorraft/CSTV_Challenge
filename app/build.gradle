@@ -60,6 +60,17 @@ android {
         }
     }
     namespace 'com.vron.cstv'
+
+    flavorDimensions "ui"
+    productFlavors {
+        jetpackCompose {
+            dimension "ui"
+        }
+
+        viewSystem {
+            dimension "ui"
+        }
+    }
 }
 
 dependencies {
