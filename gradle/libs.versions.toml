@@ -1,0 +1,12 @@
+[versions]
+koin = "3.3.0"
+jUnit5 = "5.8.2"
+
+
+[libraries]
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+
+jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnit5" }
+jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnit5" }
+jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "jUnit5" }
