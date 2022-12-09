@@ -1,0 +1,59 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <FrameLayout
+        android:id="@+id/background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/player_background_offset_top"
+        android:background="@drawable/match_item_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/player_picture" />
+
+    <ImageView
+        android:id="@+id/player_picture"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/player_picture_size"
+        android:layout_marginTop="@dimen/space_between_players"
+        android:layout_marginEnd="@dimen/player_picture_margin_side"
+        android:layout_marginBottom="@dimen/player_picture_margin_bottom"
+        android:background="@drawable/player_picture_background"
+        android:contentDescription="@string/player_picture"
+        app:layout_constraintBottom_toBottomOf="@id/background"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="@id/background"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/player_nickname"
+        style="@style/PlayerNickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/player_name_margin_side"
+        android:gravity="end"
+        app:layout_constraintBottom_toTopOf="@id/player_name"
+        app:layout_constraintEnd_toStartOf="@id/player_picture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/background"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="@tools:sample/first_names" />
+
+    <TextView
+        android:id="@+id/player_name"
+        style="@style/PlayerName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/player_name_margin_side"
+        android:gravity="end"
+        app:layout_constraintBottom_toBottomOf="@id/player_picture"
+        app:layout_constraintEnd_toStartOf="@id/player_picture"
+        tools:text="@tools:sample/full_names" />
+</merge>

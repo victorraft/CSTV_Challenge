@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/match_item_background"
+    android:minHeight="@dimen/error_footer_min_height"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/error_text"
+        style="@style/ErrorText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/error_loading_more_text" />
+</FrameLayout>
