@@ -12,12 +12,15 @@ constraintLayout-compose = '1.0.1'
 coroutines-test = '1.6.4'
 espresso = '3.5.0'
 koin = '3.3.0'
+kotlin = "1.7.20"
 ktx = '1.9.0'
 junit = '1.1.4'
 jUnit5 = '5.8.2'
+jUnit5Plugin = "1.8.2.1"
 material = '1.7.0'
 splashscreen = "1.0.0"
 glide = '4.14.2'
+gradlePlugin = "7.3.1"
 retrofit = '2.9.0'
 
 [libraries]
@@ -50,3 +53,9 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "gradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "gradlePlugin" }
+android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "jUnit5Plugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
