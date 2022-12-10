@@ -1,62 +1,52 @@
 [versions]
+activity-compose = '1.6.1'
+arch-core-testing = '2.1.0'
+appcompat = '1.5.1'
 android-lifecycle-runtime = '2.5.1'
 coil = '2.1.0'
 compose = '1.3.2'
 compose-ui = '1.4.0-alpha03'
+compose-material3 = '1.1.0-alpha03'
+constraintLayout = '2.1.4'
+constraintLayout-compose = '1.0.1'
+coroutines-test = '1.6.4'
+espresso = '3.5.0'
 koin = '3.3.0'
 ktx = '1.9.0'
+junit = '1.1.4'
 jUnit5 = '5.8.2'
-
-appcompat = '1.5.1'
 material = '1.7.0'
-constraintLayout = '2.1.4'
 splashscreen = "1.0.0"
 glide = '4.14.2'
 retrofit = '2.9.0'
-junit = '1.1.4'
-compose-material3 = '1.1.0-alpha03'
-constraintLayout-compose = '1.0.1'
-activity-compose = '1.6.1'
-arch-core-testing = '2.1.0'
-coroutines-test = '1.6.4'
-espresso = '3.5.0'
-
-
-
 
 [libraries]
-android-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "android-lifecycle-runtime" }
-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
-material = { module = "com.google.android.material:material", version.ref = "material" }
-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
-junit-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "junit" }
-compose-material = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
-constraintLayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintLayout-compose" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "arch-core-testing" }
-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-test" }
-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
-
-
+android-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "android-lifecycle-runtime" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-ktx = { module = "androidx.core:core-ktx", version.ref = "ktx" }
-
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose-ui" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 compose-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
-
+compose-material = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
+constraintLayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintLayout-compose" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-test" }
+espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
+junit-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "junit" }
 jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnit5" }
 jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnit5" }
 jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "jUnit5" }
-
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
-
+ktx = { module = "androidx.core:core-ktx", version.ref = "ktx" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
