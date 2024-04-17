@@ -4,7 +4,7 @@ App that displays CS:GO matches. Made for the [Moises coding challenge](https://
 
 The code was made using Clean Architecture's principles, and the Presentation/UI layers use MVVM implemented with Jetpack components, such as ViewModel and LiveData.
 
-The UI Layer was written using XML. Jetpack Compose was considered, but I opted for XML instead because of my familiarity with it, and the time constraints.
+The UI Layer was written using XML and Jetpack Compose. You can toggle between them by using the different build variants.
 
 For threading and concurrency Kotlin Coroutines was used.
 
@@ -39,7 +39,5 @@ After that you should be able to run the project in Android Studio.
 When running in Android 12 the Splash screen will not show the logo, if you launch the app from inside Android Studio. This is an issue with Android's [SplashScreen library](https://developer.android.com/guide/topics/ui/splash-screen) and the bug is tracked [here](https://issuetracker.google.com/issues/205021357?pli=1). This issue does not happen if you run the app from the device launcher.
 
 ## Next steps
-Since this was done in the short span of a week, it's needless to say there is still much to be improved in the project. Some of the ideas for future improvement are:
-- Writing more tests.
+Some of the ideas for future improvement are:
 - Break the `app`, `common`, `match_list` and `match_details` packages into their own separate modules.
-- Rewriting the UI layer with [Jetpack Compose](https://developer.android.com/jetpack/compose).
